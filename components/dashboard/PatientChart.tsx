@@ -5,7 +5,7 @@ import { useState } from "react";
 import { Code } from "react-content-loader";
 
 const data = [
-  ["Monthly Patient", "Patients ..."],
+  ["Months", "Patients ..."],
   ["Jan", 10],
   ["Feb", 12],
   ["Mar", 20],

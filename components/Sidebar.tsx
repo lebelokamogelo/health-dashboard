@@ -23,7 +23,7 @@ export default function SidebarComponent() {
           ? "lg:hidden"
           : "lg:block"
       } hidden`}
-      width="270px"
+      width="280px"
     >
       <Menu className="text-lg text-slate-800">
         <div className="div">
@@ -37,9 +37,9 @@ export default function SidebarComponent() {
                 fill
               />
             </div>
-            <div className="mt-2 text-center">
-              <h2 className="font-medium">Dr. Tim Smith</h2>
-              <p className="text-sm text-gray-500">timsmith@hospital.com</p>
+            <div className="mt-4 text-center">
+              <h2 className="font-medium text-xl">Dr. Tim Smith</h2>
+              <p className="text-base text-gray-500">timsmith@hospital.com</p>
             </div>
             <div className="p-4 mx-8 mt-4 border-t"></div>
           </div>

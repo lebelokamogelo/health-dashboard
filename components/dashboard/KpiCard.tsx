@@ -1,6 +1,6 @@
 import React from "react";
 import { Card } from "../ui/card";
-import { ArrowDownRight, DollarSign, User2 } from "lucide-react";
+import { DollarSign, User2 } from "lucide-react";
 
 type Props = {
   heading: string;
@@ -23,12 +23,9 @@ export default function KpiCard({ heading, total }: Props) {
                 <span>{total}</span>
               )}
             </div>
-            <div className="flex items-center space-x-3 text-base text-teal-600 growth opacity-80 ">
-              <span className="p-1 px-2 text-base bg-teal-200 bg-opacity-50 rounded-lg">
-                <ArrowDownRight height={18} width={18} />
-              </span>
+            <div className="flex items-center space-x-2 text-base text-slate-800 growth opacity-80">
               <span>34.3%</span>
-              <span className="text-lg text-slate-800">to previous month</span>
+              <span>from previous month</span>
             </div>
           </div>
           <div className="icon">

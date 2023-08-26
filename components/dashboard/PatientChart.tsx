@@ -5,10 +5,7 @@ import { useState } from "react";
 import { Code } from "react-content-loader";
 
 const data = [
-  [
-   "Monthly Patient",
-   ""
-  ],
+  ["Monthly Patient", "Patients ..."],
   ["Jan", 10],
   ["Feb", 12],
   ["Mar", 20],
@@ -16,10 +13,14 @@ const data = [
   ["May", 18],
   ["Jun", 13],
   ["Jul", 12],
-  ["Aug", 16]
+  ["Aug", 16],
+  ["Sep", 0],
+  ["Oct", 0],
+  ["Nov", 0],
+  ["Dec", 0],
 ];
 
-export const options = {
+const options = {
   chart: {
     title: "Hospital Performance",
     subtitle: "Patient: 2023 to 2024",
@@ -38,7 +39,7 @@ export default function PatientChart() {
           </p>
         )}
         <Chart
-          chartType="Line"
+          chartType="Bar"
           width="100%"
           height="480px"
           data={data}

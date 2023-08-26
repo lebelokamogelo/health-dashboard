@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, ChevronRight, Mail } from "lucide-react";
+import { Bell, ChevronRight } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -35,19 +35,21 @@ type Props = {
   label: string;
 };
 
-export function Notification({ icon, label }: Props) {
+export function Notification({ label }: Props) {
   return (
     <Menu>
-      <Menu.Button className="notification h-12 w-12 rounded-full hover:bg-slate-200 p-2.5">
-        {icon == "notification" ? <Bell /> : <Mail />}
+      <Menu.Button className="notification flex items-center justify-center h-12 w-12 rounded-full hover:bg-slate-200 p-2.5">
+        <Bell />
       </Menu.Button>
 
-      <div className="absolute z-50 mt-16 right-4">
+      <div className="absolute z-50 mt-14 right-4">
         <Menu.Items>
           <Card className={cn("w-[380px]")}>
             <CardHeader>
-              <CardTitle className="mb-2 text-2xl">{label}</CardTitle>
-              <CardDescription className="text-lg">
+              <CardTitle className="mb-2 font-medium text-xl">
+                {label}
+              </CardTitle>
+              <CardDescription className="text-base">
                 You have {notifications.length} unread notifications.
               </CardDescription>
             </CardHeader>

@@ -11,7 +11,7 @@ export default function Header() {
         ["/auth/login", "/auth/forgot", "/not-found"].includes(path)
           ? "hidden"
           : "lg:flex"
-      } flex items-center justify-between px-2 h-14 lg:h-20 lg:px-8`}
+      } flex items-center justify-between px-2 h-14 lg:h-20 lg:px-6`}
     >
       <div className="greeting">
         <p className="text-xl font-medium lg:text-2xl text-slate-800">
@@ -20,7 +20,6 @@ export default function Header() {
       </div>
       <div className="flex space-x-3">
         <Notification icon="notification" label="Notifications" />
-        <Notification label="Messages" />
       </div>
     </div>
   );

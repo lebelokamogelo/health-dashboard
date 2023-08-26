@@ -9,14 +9,14 @@ type Props = {
 
 export default function KpiCard({ heading, total }: Props) {
   return (
-    <div className="card">
+    <div className="card h-44">
       <Card className="px-8 py-4">
         <div className="text-xl font-medium content heading text-slate-600">
           {heading}
         </div>
         <div className="flex justify-between mt-4 content">
           <div className="space-y-6 left">
-            <div className="text-2xl font-semibold text-slate-800 total">
+            <div className="text-3xl font-medium text-slate-800 total">
               {heading.toLowerCase() == "sales" ? (
                 <span>$ {total}</span>
               ) : (

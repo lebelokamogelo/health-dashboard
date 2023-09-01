@@ -43,7 +43,7 @@ export function Notification({ label }: Props) {
           <Bell />
         </Menu.Button>
 
-        <div className="absolute z-50 mt-14 right-4">
+        <div className="absolute z-50 mt-4 right-4">
           <Menu.Items>
             <Card className={cn("w-[380px]")}>
               <CardHeader>

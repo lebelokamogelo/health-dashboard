@@ -1,5 +1,3 @@
-"use client";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardHeader, CardTitle } from "../ui/card";
 import { collection, getDocs } from "@firebase/firestore";
@@ -19,27 +17,18 @@ const avatarFallBackName = (name: string) =>
     .map((word) => word.charAt(0))
     .join("");
 
-export function RecentPatient() {
-  const [data, setData] = useState<dataProps[]>([]);
+export async function RecentPatient() {
+  const data: Array<dataProps> = [];
 
-  useEffect(() => {
-    const getRecentsPatients = async () => {
-      const querySnapshot = await getDocs(collection(db, "patients"));
+  const querySnapshot = await getDocs(collection(db, "patients"));
 
-      const data: Array<dataProps> = [];
-      querySnapshot.forEach((doc) => {
-        data.push({
-          uuid: doc.data().uuid,
-          name: doc.data().name,
-          email: doc.data().email,
-        });
-      });
-
-      setData(data);
-    };
-
-    getRecentsPatients();
-  }, []);
+  querySnapshot.forEach((doc) => {
+    data.push({
+      uuid: doc.data().uuid,
+      name: doc.data().name,
+      email: doc.data().email,
+    });
+  });
 
   return (
     <div>

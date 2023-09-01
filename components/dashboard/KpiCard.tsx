@@ -16,7 +16,7 @@ export default function KpiCard({ heading, total }: Props) {
         </div>
         <div className="flex justify-between mt-4 content">
           <div className="space-y-6 left">
-            <div className="text-3xl font-medium text-slate-800 total">
+            <div className="text-2xl font-medium text-slate-800 total">
               {heading.toLowerCase() == "sales" ? (
                 <span>$ {total}</span>
               ) : (

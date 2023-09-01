@@ -5,9 +5,19 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import Link from "next/link";
 import { Eye, EyeOff } from "lucide-react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from "react-hot-toast";
+import { auth } from "@/model/firebase";
+import { ThreeDots } from "react-loader-spinner";
+import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [show, setShow] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
+  if (auth.currentUser) return router.push("/");
 
   return (
     <div className="flex items-center justify-center w-full h-full px-2 text-xl">
@@ -20,15 +30,42 @@ export default function Login() {
           Remember: Yup.boolean(),
         })}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
+          setLoading(true);
+
+          setTimeout(async () => {
+            if (values.Email != "admin@gmail.com") {
+              toast.success("Standard user are not allowed to login to this website");
+              setLoading(false);
+            } else {
+              await signInWithEmailAndPassword(
+                auth,
+                values.Email,
+                values.Password
+              )
+                .then((userCredential) => {
+                  // Signed in
+                  const user = userCredential.user;
+                  toast.success(`Authenticated as ${user.email}`);
+                  setLoading(false);
+                  router.push("/");
+                })
+                .catch((error) => {
+                  const errorCode = error.code;
+                  const errorMessage = error.message;
+                  console.log(errorMessage);
+
+                  toast.success("Incorrect email address or password");
+                  setLoading(false);
+                });
+            }
+            // alert(JSON.stringify(values, null, 2));
             setSubmitting(false);
           }, 400);
         }}
       >
         {(formik) => (
-          <div className="shadow bg-white rounded-md container lg:w-[480px] p-4 border border-slate-200">
-            <h1 className="mt-10 text-3xl font-semibold text-center">
+          <div className="shadown relative bg-white rounded-md container lg:w-[480px] p-4 border border-slate-200">
+            <h1 className="mt-10 text-2xl font-semibold text-center">
               Sign in to your account
             </h1>
             <form
@@ -87,6 +124,18 @@ export default function Login() {
                 >
                   Forgot Password?
                 </Link>
+              </div>
+
+              <div className="loading flex justify-center mt-4">
+                <ThreeDots
+                  height="80"
+                  width="80"
+                  radius="9"
+                  color="#000"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{}}
+                  visible={loading}
+                />
               </div>
 
               <button

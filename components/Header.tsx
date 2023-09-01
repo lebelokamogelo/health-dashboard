@@ -15,7 +15,7 @@ export default function Header() {
     >
       <div className="greeting">
         <p className="text-xl font-medium lg:text-2xl text-slate-800">
-          Good Morning Dr. Smith
+          Good Morning.
         </p>
       </div>
       <div className="flex space-x-3">

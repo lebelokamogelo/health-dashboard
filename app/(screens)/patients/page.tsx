@@ -1,5 +1,3 @@
-"use client";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Table,
@@ -10,10 +8,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { auth, db } from "@/model/firebase";
+import { db } from "@/model/firebase";
 import { collection, getDocs } from "@firebase/firestore";
 import { Trash2, X } from "lucide-react";
-import { useEffect, useState } from "react";
 import { uuid } from "uuidv4";
 
 import {
@@ -36,29 +33,19 @@ type patientProps = {
   phone: string;
 };
 
-export default function Patients() {
-  const [patients, setPatients] = useState<patientProps[]>([]);
+export default async function Patients() {
+  const querySnapshot = await getDocs(collection(db, "patients"));
 
-  useEffect(() => {
-    const getPatients = async () => {
-      const querySnapshot = await getDocs(collection(db, "patients"));
+  const data: Array<patientProps> = [];
 
-      const data: Array<patientProps> = [];
-
-      querySnapshot.forEach((doc) => {
-        data.push({
-          uuid: doc.data().uuid,
-          name: doc.data().name,
-          email: doc.data().email,
-          phone: doc.data().phone,
-        });
-      });
-
-      setPatients(data);
-    };
-
-    getPatients();
-  }, []);
+  querySnapshot.forEach((doc) => {
+    data.push({
+      uuid: doc.data().uuid,
+      name: doc.data().name,
+      email: doc.data().email,
+      phone: doc.data().phone,
+    });
+  });
 
   const avatarFallBackName = (name: string) =>
     name
@@ -106,7 +93,7 @@ export default function Patients() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {patients.map((patient) => (
+          {data.map((patient) => (
             <TableRow key={uuid()}>
               <TableCell>
                 <Avatar className="h-8 w-8">

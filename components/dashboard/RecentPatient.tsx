@@ -1,15 +1,17 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardHeader, CardTitle } from "../ui/card";
 import { collection, getDocs } from "@firebase/firestore";
 import { db } from "@/model/firebase";
 import { uuid } from "uuidv4";
+import { useEffect, useState } from "react";
 
 type dataProps = {
   uuid: string;
   name: string;
   email: string;
 };
-const data: Array<dataProps> = [];
 
 const avatarFallBackName = (name: string) =>
   name
@@ -17,15 +19,27 @@ const avatarFallBackName = (name: string) =>
     .map((word) => word.charAt(0))
     .join("");
 
-export async function RecentPatient() {
-  const querySnapshot = await getDocs(collection(db, "patients"));
-  querySnapshot.forEach((doc) => {
-    data.push({
-      uuid: doc.data().uuid,
-      name: doc.data().name,
-      email: doc.data().email,
-    });
-  });
+export function RecentPatient() {
+  const [data, setData] = useState<dataProps[]>([]);
+
+  useEffect(() => {
+    const getRecentsPatients = async () => {
+      const querySnapshot = await getDocs(collection(db, "patients"));
+
+      const data: Array<dataProps> = [];
+      querySnapshot.forEach((doc) => {
+        data.push({
+          uuid: doc.data().uuid,
+          name: doc.data().name,
+          email: doc.data().email,
+        });
+      });
+
+      setData(data);
+    };
+
+    getRecentsPatients();
+  }, []);
 
   return (
     <div>
@@ -40,7 +54,10 @@ export async function RecentPatient() {
             return (
               <div key={uuid()} className="flex items-center">
                 <Avatar className="h-12 w-12">
-                  <AvatarImage src="" alt="Avatar" />
+                  <AvatarImage
+                    src="https://github.com/shadcn.png"
+                    alt="Avatar"
+                  />
                   <AvatarFallback>
                     {avatarFallBackName(item.name)}
                   </AvatarFallback>

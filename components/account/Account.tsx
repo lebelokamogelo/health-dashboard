@@ -2,7 +2,7 @@
 
 import { auth, db } from "@/model/firebase";
 import { createUserWithEmailAndPassword } from "@firebase/auth";
-import { addDoc, collection } from "@firebase/firestore";
+import { addDoc, collection, doc, setDoc } from "@firebase/firestore";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
@@ -28,7 +28,7 @@ export default function Account() {
         // Signed in
         const user = userCredential.user;
 
-        const docRef = await addDoc(collection(db, "patients"), {
+        const docRef = await setDoc(doc(db, "patients", user.uid), {
           name: name,
           image: "",
           email: email,

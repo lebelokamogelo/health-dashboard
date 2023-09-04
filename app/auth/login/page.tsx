@@ -33,8 +33,10 @@ export default function Login() {
           setLoading(true);
 
           setTimeout(async () => {
-            if (values.Email != "admin@gmail.com") {
-              toast.success("Standard user are not allowed to login to this website");
+            if (values.Email != "support@mail.com") {
+              toast.success(
+                "Standard user are not allowed to login to this website"
+              );
               setLoading(false);
             } else {
               await signInWithEmailAndPassword(

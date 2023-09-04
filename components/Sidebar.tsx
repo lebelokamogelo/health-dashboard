@@ -53,7 +53,7 @@ export default function SidebarComponent() {
               </div>
               <div className="mt-4 text-center">
                 <h2 className="font-medium text-xl">Admin</h2>
-                <p className="text-base text-gray-500">admin@gmail.com</p>
+                <p className="text-base text-gray-500">suppport@mail.com</p>
               </div>
               <div className="p-4 mx-8 mt-4 border-t"></div>
             </div>
@@ -67,7 +67,9 @@ export default function SidebarComponent() {
           <MenuItem icon={<User2 />}>
             <Link href={"/patients"}> Patient </Link>
           </MenuItem>
-          <MenuItem icon={<Calendar />}> Appointment</MenuItem>
+          <MenuItem icon={<Calendar />}>
+            <Link href={"/appointments"}>Appointment</Link>
+          </MenuItem>
           <MenuItem icon={<Users2 />}> Employees</MenuItem>
           <MenuItem icon={<Pill />}> Medication</MenuItem>
           <MenuItem icon={<Settings />}> Settings</MenuItem>

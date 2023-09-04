@@ -22,11 +22,12 @@ export default async function Profile() {
       name: doc.data().name,
       specializing: doc.data().specializing,
       uuid: doc.data().uuid,
+      rating: doc.data().rating,
     });
   });
 
   return (
-    <div className="grid grid-cols-5 gap-3">
+    <div className="grid grid-cols-3 gap-3">
       {data.map((doctor: doctorProps) => (
         <ProfileDoctor key={doctor.uuid} data={doctor} />
       ))}

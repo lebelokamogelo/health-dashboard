@@ -11,7 +11,6 @@ import {
 import { db } from "@/model/firebase";
 import { collection, getDocs } from "@firebase/firestore";
 import { Trash2, X } from "lucide-react";
-import { uuid } from "uuidv4";
 
 import {
   AlertDialog,
@@ -25,6 +24,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import Account from "@/components/account/Account";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { v4 } from "uuid";
 
 type patientProps = {
   uuid: string;
@@ -94,7 +94,7 @@ export default async function Patients() {
         </TableHeader>
         <TableBody>
           {data.map((patient) => (
-            <TableRow key={uuid()}>
+            <TableRow key={v4()}>
               <TableCell>
                 <Avatar className="h-8 w-8">
                   <AvatarImage
@@ -110,7 +110,7 @@ export default async function Patients() {
               <TableCell>{patient.email}</TableCell>
               <TableCell>{patient.phone}</TableCell>
               <TableCell>
-                <p className="bg-slate-200 p-1 text-center rounded-full text-slate-600 w-24">
+                <p className="bg-teal-400 p-1 text-center font-bold rounded-full text-white w-24">
                   Approved
                 </p>
               </TableCell>

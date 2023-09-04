@@ -1,3 +1,4 @@
+"use client";
 import {
   Table,
   TableBody,
@@ -8,8 +9,14 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { db } from "@/model/firebase";
-import { collectionGroup, getDocs } from "@firebase/firestore";
-import { Settings2, Trash2, X } from "lucide-react";
+import {
+  collectionGroup,
+  deleteDoc,
+  doc,
+  getDocs,
+  updateDoc,
+} from "@firebase/firestore";
+import { ChevronDown, Trash2, X } from "lucide-react";
 import { uuid } from "uuidv4";
 
 import {
@@ -22,41 +29,96 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Dialog, DialogTrigger } from "@radix-ui/react-dialog";
-import Account from "@/components/account/Account";
 
-type apppointmentProps = {
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useEffect, useState } from "react";
+
+export type apppointmentProps = {
   time: string;
   place?: string;
   date: string;
-  uuid?: string;
+  uuid: string;
   doctorId?: string;
   status: string;
   id: string;
   name: string;
 };
 
-export default async function Appoitments() {
-  const querySnapshot = await getDocs(collectionGroup(db, "appointment"));
-  console.log(querySnapshot);
+export default function Appoitments() {
+  const [appointments, setAppointments] = useState<Array<apppointmentProps>>(
+    []
+  );
+  const [change, setChange] = useState("");
 
-  const data: Array<apppointmentProps> = [];
+  useEffect(() => {
+    const getData = async () => {
+      const querySnapshot = await getDocs(collectionGroup(db, "appointment"));
 
-  querySnapshot.forEach((doc) => {
-    data.push({
-      time: doc.data().time,
-      date: doc.data().date,
-      status: doc.data().status,
-      id: doc.data().id,
-      name: doc.data().name,
-    });
-  });
+      const data: Array<apppointmentProps> = [];
 
-  const avatarFallBackName = (name: string) =>
-    name
-      .split(" ")
-      .map((word) => word.charAt(0))
-      .join("");
+      querySnapshot.forEach((doc) => {
+        data.push({
+          time: doc.data().time,
+          date: doc.data().date,
+          status: doc.data().status,
+          id: doc.data().id,
+          name: doc.data().name,
+          uuid: doc.data().uuid,
+        });
+      });
+
+      setAppointments(data);
+    };
+
+    getData();
+  }, [change]);
+
+  const updateAppointment = async (
+    uuid: string,
+    appointmentId: string,
+    status: string
+  ) => {
+    const appointmentRef = doc(
+      db,
+      "appointments",
+      uuid,
+      "appointment",
+      appointmentId
+    );
+
+    // Update the status field using updateDoc
+    try {
+      await updateDoc(appointmentRef, {
+        status: status,
+      });
+      console.log("Status updated successfully");
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
+
+  const deleteAppointment = async (uuid: string, appointmentId: string) => {
+    const appointmentRef = doc(
+      db,
+      "appointments",
+      uuid,
+      "appointment",
+      appointmentId
+    );
+
+    try {
+      await deleteDoc(appointmentRef);
+      console.log("Appointment deleted successfully");
+    } catch (error) {
+      console.error("Error deleting appointment:", error);
+    }
+  };
 
   return (
     <div className="table w-full h-full relative">
@@ -69,14 +131,13 @@ export default async function Appoitments() {
             <TableHead>No</TableHead>
             <TableHead>Doctor Name</TableHead>
             <TableHead>Date</TableHead>
-
             <TableHead>Time</TableHead>
             <TableHead>Status</TableHead>
             <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((appointment, index) => (
+          {appointments.map((appointment, index) => (
             <TableRow key={uuid()}>
               <TableCell>{index + 1}</TableCell>
               <TableCell className="font-medium">{appointment.name}</TableCell>
@@ -84,37 +145,52 @@ export default async function Appoitments() {
 
               <TableCell>{appointment.time}</TableCell>
               <TableCell>
-                <p
-                  className={`bg-slate-200 opacity-80 p-1 text-center rounded-full w-24 text-white ${
-                    appointment.status == "Pending"
-                      ? "bg-slate-500 font-semibold text-slate-50"
-                      : "bg-teal-500 font-semibold"
-                  }`}
-                >
-                  {appointment.status}
+                <p className={`opacity-80 p-1 text-center rounded-full w-32`}>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <div className="text-lg tex-slate-800">
+                        <span className="flex items-center text-base">
+                          {appointment.status}
+                          <ChevronDown className="h-4 w-4 mt-1 ml-1" />
+                        </span>
+                      </div>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-56 ph-2 py-4">
+                      <DropdownMenuRadioGroup
+                        value={appointment.status}
+                        onValueChange={setChange}
+                      >
+                        <DropdownMenuRadioItem
+                          value="Pending"
+                          onClick={() => {
+                            updateAppointment(
+                              appointment.uuid,
+                              appointment.id,
+                              "Pending"
+                            );
+                          }}
+                        >
+                          Pending
+                        </DropdownMenuRadioItem>
+                        <DropdownMenuRadioItem
+                          value="Approved"
+                          onClick={() => {
+                            updateAppointment(
+                              appointment.uuid,
+                              appointment.id,
+                              "Approved"
+                            );
+                          }}
+                        >
+                          Approved
+                        </DropdownMenuRadioItem>
+                      </DropdownMenuRadioGroup>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </p>
               </TableCell>
               <TableCell>
-                <div className="action flex space-x-4">
-                  <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                      <Settings2 className="bg-teal-400 text-neutral-200 cursor-pointer p-1.5 rounded-lg h-8 w-8" />
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                      <AlertDialogHeader>
-                        <AlertDialogTitle className="text-slate-800 text-base">
-                          Are you sure you want to delete?
-                        </AlertDialogTitle>
-                      </AlertDialogHeader>
-                      <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction className="bg-teal-400 hover:bg-teal-500">
-                          Saved
-                        </AlertDialogAction>
-                      </AlertDialogFooter>
-                    </AlertDialogContent>
-                  </AlertDialog>
-
+                <div className="action">
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <Trash2 className="bg-red-400 text-neutral-200 cursor-pointer p-2 rounded-lg h-8 w-8" />
@@ -127,7 +203,13 @@ export default async function Appoitments() {
                       </AlertDialogHeader>
                       <AlertDialogFooter>
                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction className="bg-red-500 hover:bg-red-400">
+                        <AlertDialogAction
+                          className="bg-red-500 hover:bg-red-400"
+                          onClick={() => {
+                            deleteAppointment(appointment.uuid, appointment.id);
+                            setChange("Deleted");
+                          }}
+                        >
                           Yes
                         </AlertDialogAction>
                       </AlertDialogFooter>

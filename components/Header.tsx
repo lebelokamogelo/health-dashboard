@@ -5,6 +5,10 @@ import { usePathname } from "next/navigation";
 
 export default function Header() {
   const path = usePathname();
+
+  const now = new Date();
+  const hour = now.getHours();
+
   return (
     <div
       className={`relative ${
@@ -15,7 +19,9 @@ export default function Header() {
     >
       <div className="greeting">
         <p className="text-xl font-medium lg:text-2xl text-slate-800">
-          Good afternoon
+          {`Good ${
+            hour < 12 ? "morning" : hour < 18 ? "afternoon" : "evening"
+          }`}
         </p>
       </div>
       <div className="flex space-x-3">

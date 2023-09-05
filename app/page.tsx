@@ -1,7 +1,7 @@
 import KpiCard from "@/components/dashboard/KpiCard";
 import Overview from "@/components/dashboard/PatientChart";
 import { RecentPatient } from "@/components/dashboard/RecentPatient";
-import { db } from "@/model/firebase";
+import { auth, db } from "@/model/firebase";
 import {
   collection,
   collectionGroup,

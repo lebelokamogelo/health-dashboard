@@ -9,7 +9,7 @@ export default function ProfileDoctor({ data }: { data: doctorProps }) {
   return (
     <div className="flex items-center bg-white p-2 border hover:bg-slate-50 border-gray-200 rounded-lg shadow-sm">
       <Image
-        className="rounded-full h-20 w-20 bg-slate-300"
+        className="rounded-2xl p-2 h-[84px] w-[88px] bg-slate-100"
         src="/doctor.png"
         alt=""
         width={500}

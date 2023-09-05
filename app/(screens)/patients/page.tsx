@@ -1,3 +1,5 @@
+"use client";
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Table,
@@ -25,6 +27,7 @@ import {
 import Account from "@/components/account/Account";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { v4 } from "uuid";
+import { toast } from "react-hot-toast";
 
 type patientProps = {
   uuid: string;
@@ -127,7 +130,14 @@ export default async function Patients() {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction className="bg-red-500 hover:bg-red-400">
+                      <AlertDialogAction
+                        className="bg-red-500 hover:bg-red-400"
+                        onClick={() => {
+                          toast.success(
+                            "Your account will be deleted in the next 30 days."
+                          );
+                        }}
+                      >
                         Yes
                       </AlertDialogAction>
                     </AlertDialogFooter>

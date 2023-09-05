@@ -6,7 +6,7 @@ import React from "react";
 export type doctorProps = {
   name: string;
   rating?: string;
-  image?: string;
+  image: string;
   uuid: string;
   experience?: string;
   specializing: string;
@@ -23,6 +23,7 @@ export default async function Profile() {
       specializing: doc.data().specializing,
       uuid: doc.data().uuid,
       rating: doc.data().rating,
+      image: doc.data().image,
     });
   });
 

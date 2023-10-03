@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import { Bell, ChevronRight } from "lucide-react";
+import { Bell, ChevronRight } from "lucide-react"
 
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils"
+import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
@@ -11,9 +11,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Menu } from "@headlessui/react";
-import Link from "next/link";
+} from "@/components/ui/card"
+import { Menu } from "@headlessui/react"
+import Link from "next/link"
 
 const notifications = [
   {
@@ -28,12 +28,12 @@ const notifications = [
     title: "Your subscription is expiring soon!",
     description: "2 hours ago",
   },
-];
+]
 
 type Props = {
-  icon?: string;
-  label: string;
-};
+  icon?: string
+  label: string
+}
 
 export function Notification({ label }: Props) {
   return (
@@ -43,7 +43,7 @@ export function Notification({ label }: Props) {
           <Bell />
         </Menu.Button>
 
-        <div className="absolute z-50 mt-4 right-4">
+        <div className="absolute z-50 mt-2 right-4">
           <Menu.Items>
             <Card className={cn("w-[380px]")}>
               <CardHeader>
@@ -74,19 +74,10 @@ export function Notification({ label }: Props) {
                   ))}
                 </div>
               </CardContent>
-              <CardFooter>
-                <Link href="/" className="w-full">
-                  {" "}
-                  <Button className="flex items-center w-full bg-slate-700 hover:bg-slate-800">
-                    View all {label.toLowerCase()}
-                    <ChevronRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </Link>
-              </CardFooter>
             </Card>
           </Menu.Items>
         </div>
       </Menu>
     </div>
-  );
+  )
 }

@@ -1,9 +1,9 @@
-import ProfileDoctor from "@/components/doctor/Profile"
+import ProfileDoctor from "./Profile"
 import { db } from "@/model/firebase"
 import { collection, getDocs } from "@firebase/firestore"
 import React from "react"
 
-export type doctorProps = {
+export type Props = {
   name: string
   rating?: string
   image: string
@@ -15,7 +15,7 @@ export type doctorProps = {
 export default async function Profile() {
   const querySnapshot = await getDocs(collection(db, "doctors"))
 
-  const data: Array<doctorProps> = []
+  const data: Array<Props> = []
 
   querySnapshot.forEach((doc) => {
     data.push({
@@ -24,14 +24,18 @@ export default async function Profile() {
       uuid: doc.data().uuid,
       rating: doc.data().rating,
       image: doc.data().image,
+      experience: doc.data().experience,
     })
   })
 
   return (
-    <div className="grid grid-cols-4 gap-3">
-      {data.map((doctor: doctorProps) => (
-        <ProfileDoctor key={doctor.uuid} data={doctor} />
-      ))}
+    <div className="doctor">
+      <h4 className="text-xl">Doctors</h4>
+      <div className="grid grid-cols-5 gap-3 mt-4">
+        {data.map((doctor: Props) => (
+          <ProfileDoctor key={doctor.uuid} data={doctor} />
+        ))}
+      </div>
     </div>
   )
 }

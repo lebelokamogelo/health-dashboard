@@ -7,7 +7,6 @@ import {
   collectionGroup,
   getDocs,
   query,
-  where,
 } from "@firebase/firestore"
 import React from "react"
 
@@ -25,7 +24,7 @@ export default async function Home() {
 
   return (
     <div>
-      <div className="text-2xl font-medium heading text-slate-800">
+      <div className="text-xl font-medium heading text-slate-800">
         Dashboard
       </div>
       <div className="grid grid-cols-1 gap-3 mt-4 md:grid-cols-2 kpicard 2xl:grid-cols-4">

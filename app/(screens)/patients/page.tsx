@@ -10,11 +10,10 @@ import {
 } from "@/components/ui/table"
 import { db } from "@/model/firebase"
 import { collection, getDocs } from "@firebase/firestore"
-import { Trash2, X } from "lucide-react"
+import { Settings2, X } from "lucide-react"
 
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogFooter,
@@ -25,8 +24,10 @@ import {
 import Account from "@/components/account/Account"
 import { Dialog, DialogTrigger } from "@/components/ui/dialog"
 import { v4 } from "uuid"
+import DeleteUser from "./DeleteUser"
+import Link from "next/link"
 
-type patientProps = {
+type Props = {
   uuid: string
   name: string
   email: string
@@ -36,7 +37,7 @@ type patientProps = {
 export default async function Patients() {
   const querySnapshot = await getDocs(collection(db, "patients"))
 
-  const data: Array<patientProps> = []
+  const data: Array<Props> = []
 
   querySnapshot.forEach((doc) => {
     data.push({
@@ -89,6 +90,7 @@ export default async function Patients() {
             <TableHead>ID</TableHead>
             <TableHead>Email address</TableHead>
             <TableHead>Phone number</TableHead>
+            <TableHead>status</TableHead>
             <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -110,26 +112,14 @@ export default async function Patients() {
               <TableCell>{patient.uuid}</TableCell>
               <TableCell>{patient.email}</TableCell>
               <TableCell>{patient.phone}</TableCell>
-
               <TableCell>
-                <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Trash2 className="bg-red-400 text-neutral-200 cursor-pointer p-2 rounded-lg h-8 w-8" />
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle className="text-slate-800 text-base">
-                        Are you sure you want to delete?
-                      </AlertDialogTitle>
-                    </AlertDialogHeader>
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction className="bg-red-500 hover:bg-red-400">
-                        Yes
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
+                <span className="text-blue-600 text-base">Active</span>
+              </TableCell>
+              <TableCell className="flex space-x-4">
+                <DeleteUser email={patient.email} />
+                <Link href={`/patients/${patient.uuid}`}>
+                  <Settings2 className="bg-teal-400 text-neutral-200 cursor-pointer p-1.5 rounded-lg h-8 w-8" />
+                </Link>
               </TableCell>
             </TableRow>
           ))}

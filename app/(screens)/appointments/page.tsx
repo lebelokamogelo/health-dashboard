@@ -38,6 +38,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useEffect, useState } from "react"
+import { Dialog, DialogTrigger } from "@/components/ui/dialog"
+import CreateAppointment from "./CreateAppointment"
 
 export type apppointmentProps = {
   time: string
@@ -120,6 +122,28 @@ export default function Appoitments() {
 
   return (
     <div className="table w-full h-full relative">
+      <Dialog>
+        <DialogTrigger asChild></DialogTrigger>
+
+        <AlertDialog>
+          <AlertDialogTrigger asChild>
+            <p className="cursor-pointer bg-slate-200 hover:bg-slate-300 text-base w-52 text-center p-2 rounded-md">
+              Create appointment
+            </p>
+          </AlertDialogTrigger>
+          <AlertDialogContent>
+            <AlertDialogCancel className="absolute right-0 h-14 w-14 border-none rounded-full">
+              <X />
+            </AlertDialogCancel>
+            <AlertDialogHeader>
+              <AlertDialogTitle>
+                <CreateAppointment />
+              </AlertDialogTitle>
+            </AlertDialogHeader>
+            <AlertDialogFooter></AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </Dialog>
       <Table className="border mt-10">
         <TableCaption className="text-slate-500 text-base">
           {appointments.length ? "Appointments" : "No Appointments"}

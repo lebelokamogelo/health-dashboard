@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import React from "react";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import Link from "next/link";
+import React from "react"
+import { Formik } from "formik"
+import * as Yup from "yup"
+import Link from "next/link"
 
 export default function ForgotPassword() {
   return (
@@ -17,14 +17,14 @@ export default function ForgotPassword() {
         })}
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+            alert(JSON.stringify(values, null, 2))
+            setSubmitting(false)
+          }, 400)
         }}
       >
         {(formik) => (
           <div className="shadow bg-white rounded-md w-[480px] p-4 border border-slate-200">
-            <h1 className="mx-4 text-3xl font-semibold text-center mt-14">
+            <h1 className="mx-4 text-2xl font-semibold text-center mt-14">
               Forgot Password?
             </h1>
             <p className="mx-4 mt-6">
@@ -64,5 +64,5 @@ export default function ForgotPassword() {
         )}
       </Formik>
     </div>
-  );
+  )
 }

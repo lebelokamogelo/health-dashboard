@@ -18,11 +18,11 @@ export default function Header() {
         <input
           type="text"
           placeholder="Type to search"
-          className=" bg-white outline-none py-3 px-4 rounded-full shadow-sm"
+          className=" bg-slate-50 outline-none p-4 rounded-3xl shadow-md"
         />
       </div>
       <div className="flex space-x-3">
-        <Notification icon="notification" label="Notifications" />
+        <Notification icon="notification" label="Notification" />
       </div>
     </div>
   )

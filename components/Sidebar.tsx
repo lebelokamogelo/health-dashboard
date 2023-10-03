@@ -8,7 +8,6 @@ import {
   LayoutDashboard,
   Settings,
   User2,
-  Users2,
 } from "lucide-react"
 import { auth } from "@/model/firebase"
 
@@ -51,26 +50,61 @@ export default function SidebarComponent() {
                 />
               </div>
               <div className="mt-4 text-center">
-                <h2 className="font-medium text-xl">Admin</h2>
-                <p className="text-base text-gray-500">suppport@mail.com</p>
+                <h2 className="font-medium text-xl">support</h2>
+                <p className="text-base text-gray-500">support@mail.com</p>
               </div>
               <div className="p-4 mx-8 mt-4 border-t"></div>
             </div>
           </div>
-          <MenuItem onClick={() => router.push("/")} icon={<LayoutDashboard />}>
+          <MenuItem
+            className={`${
+              path == "/" ? "bg-slate-100 text-slate-800" : "text-slate-600"
+            }`}
+            onClick={() => router.push("/")}
+            icon={<LayoutDashboard />}
+          >
             Dashboard
           </MenuItem>
-          <MenuItem icon={<User2 />}>
+          <MenuItem
+            className={`${
+              path.includes("doctors")
+                ? "bg-slate-100 text-slate-800"
+                : "text-slate-600"
+            }`}
+            icon={<User2 />}
+          >
             <Link href={"/doctors"}>Doctor</Link>
           </MenuItem>
-          <MenuItem icon={<User2 />}>
+          <MenuItem
+            className={`${
+              path.includes("patients")
+                ? "bg-slate-100 text-slate-800"
+                : "text-slate-600"
+            }`}
+            icon={<User2 />}
+          >
             <Link href={"/patients"}> Patient </Link>
           </MenuItem>
-          <MenuItem icon={<Calendar />}>
+          <MenuItem
+            className={`${
+              path.includes("appointments")
+                ? "bg-slate-100 text-slate-800"
+                : "text-slate-600"
+            }`}
+            icon={<Calendar />}
+          >
             <Link href={"/appointments"}>Appointment</Link>
           </MenuItem>
-          <MenuItem icon={<Users2 />}> Employees</MenuItem>
-          <MenuItem icon={<Settings />}> Settings</MenuItem>
+          <MenuItem
+            className={`${
+              path.includes("settings")
+                ? "bg-slate-100 text-slate-800"
+                : "text-slate-600"
+            }`}
+            icon={<Settings />}
+          >
+            <Link href={"/settings"}>Settings</Link>
+          </MenuItem>
 
           <MenuItem icon={<ArrowDownRight />}>
             <AlertDialog>

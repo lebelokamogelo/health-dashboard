@@ -3,7 +3,6 @@ import { Card, CardHeader, CardTitle } from "../ui/card"
 import { collection, getDocs } from "@firebase/firestore"
 import { db } from "@/model/firebase"
 import { uuid } from "uuidv4"
-import { useEffect, useState } from "react"
 
 type dataProps = {
   uuid: string

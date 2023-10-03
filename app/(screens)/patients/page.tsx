@@ -1,6 +1,4 @@
-"use client";
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   Table,
   TableBody,
@@ -9,10 +7,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { db } from "@/model/firebase";
-import { collection, getDocs } from "@firebase/firestore";
-import { Trash2, X } from "lucide-react";
+} from "@/components/ui/table"
+import { db } from "@/model/firebase"
+import { collection, getDocs } from "@firebase/firestore"
+import { Trash2, X } from "lucide-react"
 
 import {
   AlertDialog,
@@ -23,23 +21,22 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import Account from "@/components/account/Account";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import { v4 } from "uuid";
-import { toast } from "react-hot-toast";
+} from "@/components/ui/alert-dialog"
+import Account from "@/components/account/Account"
+import { Dialog, DialogTrigger } from "@/components/ui/dialog"
+import { v4 } from "uuid"
 
 type patientProps = {
-  uuid: string;
-  name: string;
-  email: string;
-  phone: string;
-};
+  uuid: string
+  name: string
+  email: string
+  phone: string
+}
 
 export default async function Patients() {
-  const querySnapshot = await getDocs(collection(db, "patients"));
+  const querySnapshot = await getDocs(collection(db, "patients"))
 
-  const data: Array<patientProps> = [];
+  const data: Array<patientProps> = []
 
   querySnapshot.forEach((doc) => {
     data.push({
@@ -47,14 +44,14 @@ export default async function Patients() {
       name: doc.data().name,
       email: doc.data().email,
       phone: doc.data().phone,
-    });
-  });
+    })
+  })
 
   const avatarFallBackName = (name: string) =>
     name
       .split(" ")
       .map((word) => word.charAt(0))
-      .join("");
+      .join("")
 
   return (
     <div className="table w-full h-full relative">
@@ -89,9 +86,9 @@ export default async function Patients() {
           <TableRow>
             <TableHead>Photo</TableHead>
             <TableHead>Name</TableHead>
+            <TableHead>ID</TableHead>
             <TableHead>Email address</TableHead>
             <TableHead>Phone number</TableHead>
-            <TableHead>Status</TableHead>
             <TableHead>Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -110,13 +107,10 @@ export default async function Patients() {
                 </Avatar>
               </TableCell>
               <TableCell className="font-medium">{patient.name}</TableCell>
+              <TableCell>{patient.uuid}</TableCell>
               <TableCell>{patient.email}</TableCell>
               <TableCell>{patient.phone}</TableCell>
-              <TableCell>
-                <p className="bg-teal-400 p-1 text-center font-bold rounded-full text-white w-24">
-                  Approved
-                </p>
-              </TableCell>
+
               <TableCell>
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
@@ -130,14 +124,7 @@ export default async function Patients() {
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancel</AlertDialogCancel>
-                      <AlertDialogAction
-                        className="bg-red-500 hover:bg-red-400"
-                        onClick={() => {
-                          toast.success(
-                            "Your account will be deleted in the next 30 days."
-                          );
-                        }}
-                      >
+                      <AlertDialogAction className="bg-red-500 hover:bg-red-400">
                         Yes
                       </AlertDialogAction>
                     </AlertDialogFooter>
@@ -149,5 +136,5 @@ export default async function Patients() {
         </TableBody>
       </Table>
     </div>
-  );
+  )
 }

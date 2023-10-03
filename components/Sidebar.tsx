@@ -1,17 +1,16 @@
-"use client";
-import Image from "next/image";
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { usePathname, useRouter } from "next/navigation";
+"use client"
+import Image from "next/image"
+import { Sidebar, Menu, MenuItem } from "react-pro-sidebar"
+import { usePathname, useRouter } from "next/navigation"
 import {
   ArrowDownRight,
   Calendar,
   LayoutDashboard,
-  Pill,
   Settings,
   User2,
   Users2,
-} from "lucide-react";
-import { auth } from "@/model/firebase";
+} from "lucide-react"
+import { auth } from "@/model/firebase"
 
 import {
   AlertDialog,
@@ -22,12 +21,12 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import Link from "next/link";
+} from "@/components/ui/alert-dialog"
+import Link from "next/link"
 
 export default function SidebarComponent() {
-  const router = useRouter();
-  const path = usePathname();
+  const router = useRouter()
+  const path = usePathname()
 
   return (
     <div>
@@ -71,7 +70,6 @@ export default function SidebarComponent() {
             <Link href={"/appointments"}>Appointment</Link>
           </MenuItem>
           <MenuItem icon={<Users2 />}> Employees</MenuItem>
-          <MenuItem icon={<Pill />}> Medication</MenuItem>
           <MenuItem icon={<Settings />}> Settings</MenuItem>
 
           <MenuItem icon={<ArrowDownRight />}>
@@ -87,8 +85,8 @@ export default function SidebarComponent() {
                   <AlertDialogCancel>Cancel</AlertDialogCancel>
                   <AlertDialogAction
                     onClick={() => {
-                      router.push("/auth/login");
-                      auth.signOut();
+                      router.push("/auth/login")
+                      auth.signOut()
                     }}
                   >
                     Yes
@@ -100,5 +98,5 @@ export default function SidebarComponent() {
         </Menu>
       </Sidebar>
     </div>
-  );
+  )
 }

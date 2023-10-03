@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import {
   Table,
   TableBody,
@@ -7,17 +7,17 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { db } from "@/model/firebase";
+} from "@/components/ui/table"
+import { db } from "@/model/firebase"
 import {
   collectionGroup,
   deleteDoc,
   doc,
   getDocs,
   updateDoc,
-} from "@firebase/firestore";
-import { ChevronDown, Trash2, X } from "lucide-react";
-import { uuid } from "uuidv4";
+} from "@firebase/firestore"
+import { ChevronDown, Trash2, X } from "lucide-react"
+import { uuid } from "uuidv4"
 
 import {
   AlertDialog,
@@ -28,7 +28,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/components/ui/alert-dialog"
 
 import {
   DropdownMenu,
@@ -36,31 +36,29 @@ import {
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useEffect, useState } from "react";
+} from "@/components/ui/dropdown-menu"
+import { useEffect, useState } from "react"
 
 export type apppointmentProps = {
-  time: string;
-  place?: string;
-  date: string;
-  uuid: string;
-  doctorId?: string;
-  status: string;
-  id: string;
-  name: string;
-};
+  time: string
+  place?: string
+  date: string
+  uuid: string
+  doctorId?: string
+  status: string
+  id: string
+  name: string
+}
 
 export default function Appoitments() {
-  const [appointments, setAppointments] = useState<Array<apppointmentProps>>(
-    []
-  );
-  const [change, setChange] = useState("");
+  const [appointments, setAppointments] = useState<Array<apppointmentProps>>([])
+  const [change, setChange] = useState("")
 
   useEffect(() => {
     const getData = async () => {
-      const querySnapshot = await getDocs(collectionGroup(db, "appointment"));
+      const querySnapshot = await getDocs(collectionGroup(db, "appointment"))
 
-      const data: Array<apppointmentProps> = [];
+      const data: Array<apppointmentProps> = []
 
       querySnapshot.forEach((doc) => {
         data.push({
@@ -70,14 +68,14 @@ export default function Appoitments() {
           id: doc.data().id,
           name: doc.data().name,
           uuid: doc.data().uuid,
-        });
-      });
+        })
+      })
 
-      setAppointments(data);
-    };
+      setAppointments(data)
+    }
 
-    getData();
-  }, [change]);
+    getData()
+  }, [change])
 
   const updateAppointment = async (
     uuid: string,
@@ -90,18 +88,18 @@ export default function Appoitments() {
       uuid,
       "appointment",
       appointmentId
-    );
+    )
 
     // Update the status field using updateDoc
     try {
       await updateDoc(appointmentRef, {
         status: status,
-      });
-      console.log("Status updated successfully");
+      })
+      console.log("Status updated successfully")
     } catch (error) {
-      console.error("Error updating status:", error);
+      console.error("Error updating status:", error)
     }
-  };
+  }
 
   const deleteAppointment = async (uuid: string, appointmentId: string) => {
     const appointmentRef = doc(
@@ -110,21 +108,21 @@ export default function Appoitments() {
       uuid,
       "appointment",
       appointmentId
-    );
+    )
 
     try {
-      await deleteDoc(appointmentRef);
-      console.log("Appointment deleted successfully");
+      await deleteDoc(appointmentRef)
+      console.log("Appointment deleted successfully")
     } catch (error) {
-      console.error("Error deleting appointment:", error);
+      console.error("Error deleting appointment:", error)
     }
-  };
+  }
 
   return (
     <div className="table w-full h-full relative">
       <Table className="border mt-10">
         <TableCaption className="text-slate-500 text-base">
-          Appointments
+          {appointments.length ? "Appointments" : "No Appointments"}
         </TableCaption>
         <TableHeader>
           <TableRow>
@@ -167,7 +165,7 @@ export default function Appoitments() {
                               appointment.uuid,
                               appointment.id,
                               "Pending"
-                            );
+                            )
                           }}
                         >
                           Pending
@@ -179,7 +177,7 @@ export default function Appoitments() {
                               appointment.uuid,
                               appointment.id,
                               "Approved"
-                            );
+                            )
                           }}
                         >
                           Approved
@@ -206,8 +204,8 @@ export default function Appoitments() {
                         <AlertDialogAction
                           className="bg-red-500 hover:bg-red-400"
                           onClick={() => {
-                            deleteAppointment(appointment.uuid, appointment.id);
-                            setChange("Deleted");
+                            deleteAppointment(appointment.uuid, appointment.id)
+                            setChange("Deleted")
                           }}
                         >
                           Yes
@@ -222,5 +220,5 @@ export default function Appoitments() {
         </TableBody>
       </Table>
     </div>
-  );
+  )
 }

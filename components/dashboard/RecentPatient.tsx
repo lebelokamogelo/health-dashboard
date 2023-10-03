@@ -1,34 +1,34 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardHeader, CardTitle } from "../ui/card";
-import { collection, getDocs } from "@firebase/firestore";
-import { db } from "@/model/firebase";
-import { uuid } from "uuidv4";
-import { useEffect, useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Card, CardHeader, CardTitle } from "../ui/card"
+import { collection, getDocs } from "@firebase/firestore"
+import { db } from "@/model/firebase"
+import { uuid } from "uuidv4"
+import { useEffect, useState } from "react"
 
 type dataProps = {
-  uuid: string;
-  name: string;
-  email: string;
-};
+  uuid: string
+  name: string
+  email: string
+}
 
 const avatarFallBackName = (name: string) =>
   name
     .split(" ")
     .map((word) => word.charAt(0))
-    .join("");
+    .join("")
 
 export async function RecentPatient() {
-  const data: Array<dataProps> = [];
+  const data: Array<dataProps> = []
 
-  const querySnapshot = await getDocs(collection(db, "patients"));
+  const querySnapshot = await getDocs(collection(db, "patients"))
 
   querySnapshot.forEach((doc) => {
     data.push({
       uuid: doc.data().uuid,
       name: doc.data().name,
       email: doc.data().email,
-    });
-  });
+    })
+  })
 
   return (
     <div>
@@ -58,10 +58,10 @@ export async function RecentPatient() {
                   <p className="text-base text-gray-500">{item.email}</p>
                 </div>
               </div>
-            );
+            )
           })}
         </div>
       </Card>
     </div>
-  );
+  )
 }

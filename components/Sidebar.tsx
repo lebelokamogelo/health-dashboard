@@ -97,6 +97,16 @@ export default function SidebarComponent() {
           </MenuItem>
           <MenuItem
             className={`${
+              path.includes("calendar")
+                ? "bg-slate-100 text-slate-800"
+                : "text-slate-600"
+            }`}
+            icon={<Calendar />}
+          >
+            <Link href={"/calendar"}>Calendar</Link>
+          </MenuItem>
+          <MenuItem
+            className={`${
               path.includes("settings")
                 ? "bg-slate-100 text-slate-800"
                 : "text-slate-600"

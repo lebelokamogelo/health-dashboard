@@ -18,7 +18,7 @@ export default function Header() {
         <input
           type="text"
           placeholder="Type to search"
-          className=" bg-slate-50 outline-none p-4 rounded-3xl shadow-md"
+          className=" bg-slate-50 outline-none p-4 rounded-2xl shadow-md"
         />
       </div>
       <div className="flex space-x-3">

@@ -39,7 +39,7 @@ export default function page({ params }: { params: { uuid: String } }) {
             </label>
             <input
               type="text"
-              className="px-4 py-2 rounded-md bg-transparent border-[1px] border-slate-200 w-[520px] outline-none"
+              className="px-4 py-2 rounded-md bg-transparent text-base border-[1px] border-slate-200 w-[520px] outline-none"
             />
           </div>
         </div>
@@ -53,7 +53,7 @@ export default function page({ params }: { params: { uuid: String } }) {
               </label>
               <input
                 type="text"
-                className="px-4 py-2 rounded-md bg-transparent border-[1px] border-slate-200 w-[520px] outline-none"
+                className="px-4 py-2 rounded-md bg-transparent text-base border-[1px] border-slate-200 w-[520px] outline-none"
               />
             </div>
             <div className="email flex flex-col space-y-2 mt-8">
@@ -62,7 +62,7 @@ export default function page({ params }: { params: { uuid: String } }) {
               </label>
               <input
                 type="text"
-                className="px-4 py-2 rounded-md bg-transparent border-[1px] border-slate-200 w-[520px] outline-none"
+                className="px-4 py-2 rounded-md bg-transparent text-base border-[1px] border-slate-200 w-[520px] outline-none"
               />
             </div>
           </div>
@@ -75,7 +75,7 @@ export default function page({ params }: { params: { uuid: String } }) {
             <div className="flex items-center space-x-8">
               <input
                 type="text"
-                className="px-4 py-2 rounded-md bg-transparent border-[1px] border-slate-200 w-[520px] outline-none"
+                className="px-4 py-2 rounded-md bg-transparent text-base border-[1px] border-slate-200 w-[520px] outline-none"
               />
               <Button className="bg-slate-700 text-base hover:bg-slate-800">
                 Update password

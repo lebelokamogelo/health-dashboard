@@ -17,7 +17,7 @@ import "react-big-calendar/lib/addons/dragAndDrop/styles.css"
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import { Button } from "@/components/ui/button"
 
-export default function calendar() {
+export default function CalendarEvents() {
   const [events, setEvents] = useState<Event[]>([])
   const [newEvent, setNewEvent] = useState<Event>({
     title: "",

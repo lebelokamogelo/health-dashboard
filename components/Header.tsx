@@ -2,6 +2,7 @@
 import React from "react"
 import { Notification } from "./Notifications"
 import { usePathname } from "next/navigation"
+import Search from "./Search"
 
 export default function Header() {
   const path = usePathname()
@@ -15,11 +16,7 @@ export default function Header() {
       } flex items-center justify-between px-2 h-14 lg:h-20 lg:px-6`}
     >
       <div className="search">
-        <input
-          type="text"
-          placeholder="Type to search"
-          className=" bg-slate-50 outline-none p-4 rounded-2xl shadow-md"
-        />
+        <Search />
       </div>
       <div className="flex space-x-3">
         <Notification icon="notification" label="Notification" />

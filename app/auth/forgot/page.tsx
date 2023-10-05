@@ -1,11 +1,17 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import { Formik } from "formik"
 import * as Yup from "yup"
 import Link from "next/link"
+import { PulseLoader } from "react-spinners"
+import toast from "react-hot-toast"
+import { sendPasswordResetEmail } from "@firebase/auth"
+import { auth } from "@/model/firebase"
 
 export default function ForgotPassword() {
+  const [loading, setLoading] = useState(false)
+
   return (
     <div className="flex items-center justify-center w-full h-full px-2 text-xl">
       <Formik
@@ -15,16 +21,26 @@ export default function ForgotPassword() {
             .email("Please enter a email address")
             .required("Required"),
         })}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2))
-            setSubmitting(false)
-          }, 400)
+        onSubmit={async (values, { setSubmitting }) => {
+          setLoading(true)
+          await sendPasswordResetEmail(auth, "patient.email")
+            .then(() => {
+              toast.success(
+                `You should receive an email with a link to reset your password ${values.Email}`
+              )
+              setLoading(false)
+            })
+            .catch((error) => {
+              const errorMessage = error.message
+              toast.error(errorMessage)
+              setLoading(false)
+            })
+          setSubmitting(false)
         }}
       >
         {(formik) => (
           <div className="shadow bg-white rounded-md w-[480px] p-4 border border-slate-200">
-            <h1 className="mx-4 text-2xl font-semibold text-center mt-14">
+            <h1 className="mx-4 text-2xl font-semibold text-center mt-8">
               Forgot Password?
             </h1>
             <p className="mx-4 mt-6">
@@ -50,12 +66,21 @@ export default function ForgotPassword() {
                 ) : null}
               </div>
 
-              <button
-                type="submit"
-                className="w-full px-4 py-2 mt-8 text-white bg-blue-400 rounded-md hover:bg-blue-500"
-              >
-                request reset
-              </button>
+              <div className="mt-14">
+                {loading ? (
+                  <div className="loading w-full text-center">
+                    <PulseLoader color="#36d7b7" />{" "}
+                  </div>
+                ) : (
+                  <button
+                    type="submit"
+                    className="w-full px-4 py-2 text-white bg-slate-600 rounded-md hover:bg-slate-700"
+                  >
+                    request reset
+                  </button>
+                )}
+              </div>
+
               <div className="mt-8 login hover:underline hover:text-blue-700">
                 <Link href={"/auth/login"}>Back to login</Link>
               </div>

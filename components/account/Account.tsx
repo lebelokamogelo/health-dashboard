@@ -1,20 +1,20 @@
-"use client";
+"use client"
 
-import { auth, db } from "@/model/firebase";
-import { createUserWithEmailAndPassword } from "@firebase/auth";
-import { addDoc, collection, doc, setDoc } from "@firebase/firestore";
-import { Eye, EyeOff } from "lucide-react";
-import { useState } from "react";
-import { toast } from "react-hot-toast";
-import { ThreeDots } from "react-loader-spinner";
+import { auth, db } from "@/model/firebase"
+import { createUserWithEmailAndPassword } from "@firebase/auth"
+import { doc, setDoc } from "@firebase/firestore"
+import { Eye, EyeOff } from "lucide-react"
+import { useState } from "react"
+import { toast } from "react-hot-toast"
+import { PulseLoader } from "react-spinners"
 
 export default function Account() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
-  const [show, setShow] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+  const [password, setPassword] = useState("")
+  const [show, setShow] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const createAccount = (
     email: string,
@@ -22,11 +22,11 @@ export default function Account() {
     phone: string,
     name: string
   ) => {
-    setLoading(true);
+    setLoading(true)
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         // Signed in
-        const user = userCredential.user;
+        const user = userCredential.user
 
         const docRef = await setDoc(doc(db, "patients", user.uid), {
           name: name,
@@ -36,20 +36,20 @@ export default function Account() {
           uuid: user.uid,
         })
           .then(() => {
-            toast.success("Account created successfully");
-            setLoading(false);
+            toast.success("Account created successfully")
+            setLoading(false)
           })
           .catch((err) => {
-            toast.success(err.message);
-            setLoading(false);
-          });
+            toast.success(err.message)
+            setLoading(false)
+          })
       })
       .catch((error) => {
-        const errorMessage = error.message;
-        toast.error(errorMessage);
-        setLoading(false);
-      });
-  };
+        const errorMessage = error.message
+        toast.error(errorMessage)
+        setLoading(false)
+      })
+  }
 
   return (
     <div className="bg-grey-lighter flex flex-col">
@@ -99,27 +99,22 @@ export default function Account() {
               {show ? <Eye /> : <EyeOff />}
             </div>
           </div>
-          <div className="loading flex justify-center mt-4">
-            <ThreeDots
-              height="80"
-              width="80"
-              radius="9"
-              color="#000"
-              ariaLabel="three-dots-loading"
-              wrapperStyle={{}}
-              visible={loading}
-            />
+          <div className="loading mt-20 flex justify-center">
+            {loading ? (
+              <PulseLoader color="#36d7b7" />
+            ) : (
+              <button
+                className="border-0 text-white text-base bg-slate-600 hover:bg-slate-700 w-full p-2.5 rounded-md outline-none"
+                onClick={() => {
+                  createAccount(email, password, phone, name)
+                }}
+              >
+                Create Accout
+              </button>
+            )}
           </div>
-          <button
-            className="border-0 text-white text-base mt-20 bg-slate-600 hover:bg-slate-700 w-full p-2.5 rounded-md outline-none"
-            onClick={() => {
-              createAccount(email, password, phone, name);
-            }}
-          >
-            Create Accout
-          </button>
         </div>
       </div>
     </div>
-  );
+  )
 }

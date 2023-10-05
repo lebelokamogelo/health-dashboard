@@ -1,19 +1,16 @@
 "use client"
 
-import { Bell, ChevronRight } from "lucide-react"
+import { Bell } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import { Menu } from "@headlessui/react"
-import Link from "next/link"
 
 const notifications = [
   {

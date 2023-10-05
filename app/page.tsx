@@ -22,16 +22,32 @@ export default async function Home() {
   const doctor = await querySnapshot("doctors")
   const apppointments = (await getDocs(collectionGroup(db, "appointment"))).size
 
+  const percentage = (patient: any, prevMonth: any) => {
+    if (patient >= prevMonth) {
+      return Math.round(((patient - prevMonth) / prevMonth) * 100)
+    }
+
+    return Math.round(((prevMonth - patient) / prevMonth) * 100)
+  }
+
   return (
     <div>
       <div className="text-xl font-medium heading text-slate-800">
         Dashboard
       </div>
       <div className="grid grid-cols-1 gap-3 mt-4 md:grid-cols-2 kpicard 2xl:grid-cols-4">
-        <KpiCard heading="Patients" total={patient} />
-        <KpiCard heading="Doctors" total={doctor} />
-        <KpiCard heading="Appointments" total={apppointments} />
-        <KpiCard heading="Sales" total={400} />
+        <KpiCard
+          heading="Patients"
+          total={patient}
+          percent={percentage(patient, 3)}
+        />
+        <KpiCard heading="Doctors" total={doctor} percent={14} />
+        <KpiCard
+          heading="Appointments"
+          total={apppointments}
+          percent={percentage(patient, 4)}
+        />
+        <KpiCard heading="Sales" total={400} percent={26} />
       </div>
       <div className="grid grid-cols-1 h-[480px] gap-3 space-y-4 xl:grid-cols-3 lg:space-y-0 overview">
         <div className="col-span-2">

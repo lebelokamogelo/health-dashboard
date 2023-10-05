@@ -1,13 +1,14 @@
-import React from "react";
-import { Card } from "../ui/card";
-import { DollarSign, User2 } from "lucide-react";
+import React from "react"
+import { Card } from "../ui/card"
+import { DollarSign, User2 } from "lucide-react"
 
 type Props = {
-  heading: string;
-  total: number;
-};
+  heading: string
+  total: number
+  percent: number
+}
 
-export default function KpiCard({ heading, total }: Props) {
+export default function KpiCard({ heading, total, percent }: Props) {
   return (
     <div className="card h-44">
       <Card className="px-8 py-4">
@@ -24,7 +25,7 @@ export default function KpiCard({ heading, total }: Props) {
               )}
             </div>
             <div className="flex items-center space-x-2 text-base text-slate-800 growth opacity-80">
-              <span>34.3%</span>
+              <span>{percent}%</span>
               <span>from previous month</span>
             </div>
           </div>
@@ -40,5 +41,5 @@ export default function KpiCard({ heading, total }: Props) {
         </div>
       </Card>
     </div>
-  );
+  )
 }

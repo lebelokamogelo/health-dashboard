@@ -1,34 +1,31 @@
-"use client";
-import Chart from "react-google-charts";
-import { Card } from "../ui/card";
-import { useState } from "react";
-import { Code } from "react-content-loader";
+"use client"
+import Chart from "react-google-charts"
+import { Card } from "../ui/card"
+import { useState } from "react"
+import { Code } from "react-content-loader"
 
 const data = [
   ["Months", "Patients ..."],
-  ["Jan", 10],
-  ["Feb", 12],
-  ["Mar", 20],
-  ["Apr", 15],
-  ["May", 18],
-  ["Jun", 13],
-  ["Jul", 12],
-  ["Aug", 16],
-  ["Sep", 0],
-  ["Oct", 0],
+  ["Apr", 3],
+  ["May", 4],
+  ["Jun", 2],
+  ["Jul", 5],
+  ["Aug", 6],
+  ["Sep", 3],
+  ["Oct", 1],
   ["Nov", 0],
   ["Dec", 0],
-];
+]
 
 const options = {
   chart: {
     title: "Hospital Performance",
     subtitle: "Patient: 2023 to 2024",
   },
-};
+}
 
 export default function PatientChart() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true)
 
   return (
     <div>
@@ -50,5 +47,5 @@ export default function PatientChart() {
         </div>
       </Card>
     </div>
-  );
+  )
 }

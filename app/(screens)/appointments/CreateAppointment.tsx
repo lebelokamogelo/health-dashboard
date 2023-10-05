@@ -3,26 +3,73 @@ import { useState } from "react"
 import { Calendar } from "@/components/ui/calendar"
 import { Button } from "@/components/ui/button"
 import { Listbox } from "@headlessui/react"
+import { nanoid } from "nanoid"
+import toast from "react-hot-toast"
+import { PulseLoader } from "react-spinners"
 
 export default function CreateAppointment() {
   const [date, setDate] = useState<Date | undefined>(() => {
     const newDate = new Date(new Date().setDate(new Date().getDate() + 4))
     return newDate
   })
-  const [selectedDoctor, setSelectedDoctor] = useState("Dr. P Susan")
-  const [selectedSlot, setSelectedSlot] = useState("07:30")
+  const [selectedDoctor, setSelectedDoctor] = useState("0")
+  const [selectedSlot, setSelectedSlot] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const [appointment, setAppointment] = useState({
-    name: "support",
-    contact: "+27721789611",
+    name: "",
+    contact: "+27000000000",
   })
 
   const doctors = ["Dr. A Deborah", "Dr. S Freddie", "Dr. P Susan"]
-  const slots = ["07:30", "10:00", "14:00"]
+  const doctorId = [
+    "9Lq4uzAPGWBcu9JkFFoi",
+    "AlWxMPffjmCTYwyLzhZ2",
+    "JX72WzdVcwBpgn62y9pC",
+  ]
+  const slots = ["09h00", "10h00", "14h00"]
 
-  const BookAppointment = () => {
-    console.log(appointment, selectedDoctor, selectedSlot, date)
+  const BookAppointment = async () => {
+    setLoading(true)
+
+    const newDate = new Date(date!)
+    const day = newDate.getDate()
+    const month = newDate.toLocaleDateString("en-US", {
+      month: "short",
+    })
+    const year = newDate.getFullYear()
+    const formattedDate = `${day} ${month} ${year}`
+
+    const appointmentId = nanoid()
+
+    const response = await fetch("/api/twilio", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        date: formattedDate,
+        doctorId: doctorId[Number(selectedDoctor)],
+        id: appointmentId,
+        name: appointment.name,
+        place: "Mankweng",
+        status: "Approved",
+        time: selectedSlot,
+        doctorName: doctors[Number(selectedDoctor)],
+        phone: appointment.contact,
+      }),
+    })
+
+    if (response.ok) {
+      toast.success("Appointment was booked sucessfully")
+      setLoading(false)
+    } else {
+      toast.error("Something went wrong")
+      setLoading(false)
+    }
   }
+
   return (
     <div>
       <p className="text-slate-700">Request Appointment</p>
@@ -63,15 +110,18 @@ export default function CreateAppointment() {
               Doctor
             </label>
 
-            <Listbox value={selectedDoctor} onChange={setSelectedDoctor}>
+            <Listbox
+              value={doctors[Number(selectedDoctor)]}
+              onChange={setSelectedDoctor}
+            >
               <Listbox.Button className="w-[230px] text-start border-[1px] h-12 rounded-md px-2 text-sm">
-                {selectedDoctor}
+                {doctors[Number(selectedDoctor)]}
               </Listbox.Button>
               <Listbox.Options className="absolute bg-white bottom-0 shadow-xl text-sm space-y-3 px-4 py-2 w-40">
-                {doctors.map((doctor) => (
+                {doctors.map((doctor, index) => (
                   <Listbox.Option
                     key={doctor}
-                    value={doctor}
+                    value={index}
                     className="cursor-pointer"
                   >
                     {doctor}
@@ -112,12 +162,18 @@ export default function CreateAppointment() {
       </div>
 
       <div className="button mt-8 mx-4">
-        <Button
-          onClick={() => BookAppointment()}
-          className="bg-slate-700 w-full text-base hover:bg-slate-800"
-        >
-          Book Appointment
-        </Button>
+        {loading ? (
+          <div className="loading w-full text-center">
+            <PulseLoader color="#36d7b7" />
+          </div>
+        ) : (
+          <Button
+            onClick={() => BookAppointment()}
+            className="bg-slate-700 w-full text-base hover:bg-slate-800"
+          >
+            Book Appointment
+          </Button>
+        )}
       </div>
     </div>
   )

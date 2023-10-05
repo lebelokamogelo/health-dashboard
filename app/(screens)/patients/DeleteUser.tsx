@@ -31,7 +31,9 @@ export default function DeleteUser({ email }: { email: String }) {
     const querySnapshot = await getDocs(emailRef)
 
     if (!querySnapshot.empty) {
-      toast.success("Already deleted")
+      toast.error(
+        "The account deletion process has been initiated, and it is scheduled to be completed in 30 days."
+      )
       return
     } else {
       const docRef = await addDoc(collection(db, "trash"), {

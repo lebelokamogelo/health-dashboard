@@ -62,10 +62,17 @@ export default function CreateAppointment() {
     })
 
     if (response.ok) {
-      toast.success("Appointment was booked sucessfully")
-      setLoading(false)
+      const responseData = await response.json()
+
+      if (responseData.status === "200") {
+        toast.success("Appointment was booked successfully")
+        setLoading(false)
+      } else {
+        toast.error("Something went wrong")
+        setLoading(false)
+      }
     } else {
-      toast.error("Something went wrong")
+      toast.error("Server error")
       setLoading(false)
     }
   }

@@ -22,7 +22,7 @@ const notifications = [
     description: "1 hour ago",
   },
   {
-    title: "Your subscription is expiring soon!",
+    title: "You have an event coming soon.",
     description: "2 hours ago",
   },
 ]

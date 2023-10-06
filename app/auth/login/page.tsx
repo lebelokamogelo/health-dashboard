@@ -78,7 +78,7 @@ export default function Login() {
                   id="Email"
                   type="email"
                   {...formik.getFieldProps("Email")}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  className="w-full text-base px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                 />
                 {formik.touched.Email && formik.errors.Email ? (
                   <div className="mt-1 text-red-500">{formik.errors.Email}</div>
@@ -94,7 +94,7 @@ export default function Login() {
                     id="Password"
                     type={show ? "text" : "password"}
                     {...formik.getFieldProps("Password")}
-                    className="flex-1 w-full h-full px-4 py-2 rounded-md focus:outline-none"
+                    className="flex-1 w-full text-base h-full px-4 py-2 rounded-md focus:outline-none"
                   />
                   <div
                     className="p-1 mx-2 rounded-md show-hide-password hover:bg-slate-200"

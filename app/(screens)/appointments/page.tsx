@@ -100,8 +100,9 @@ export default function Appoitments() {
     try {
       await updateDoc(appointmentRef, {
         status: status,
+      }).then(() => {
+        toast.success("Appointment updated successfully")
       })
-      toast.success("Appointment updated successfully")
     } catch (error) {
       toast.error("An error has occured")
     }

@@ -15,12 +15,12 @@ export default function ProfileDoctor({ data }: { data: Props }) {
         <p className="text-base text-blue-700">{data.specializing}</p>
       </div>
 
-      <div className="about mt-8 flex w-full space-x-7 px-4 justify-between items-center">
+      <div className="about mt-8 flex w-full space-x-7 px-2 justify-between items-center">
         <div className="rating">
           <ReactStars value={parseInt(data.rating!)} isEdit={false} />
         </div>
         <div className="experience flex-1 text-base">
-          {data.experience} year experience
+          {data.experience} year{Number(data.experience) > 1 && "s"} experience
         </div>
       </div>
     </div>

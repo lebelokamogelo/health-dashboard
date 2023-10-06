@@ -1,29 +1,53 @@
 "use client"
 import { Button } from "@/components/ui/button"
+import { db } from "@/model/firebase"
+import { addDoc, collection, getDocs } from "@firebase/firestore"
 import addHours from "date-fns/addHours"
 import format from "date-fns/format"
 import getDay from "date-fns/getDay"
 import enUS from "date-fns/locale/en-US"
 import parse from "date-fns/parse"
 import startOfWeek from "date-fns/startOfWeek"
-import { useState } from "react"
-import {
-  Calendar,
-  dateFnsLocalizer,
-  Event,
-  stringOrDate,
-} from "react-big-calendar"
+import { useEffect, useState } from "react"
+import { Calendar, dateFnsLocalizer, stringOrDate } from "react-big-calendar"
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop"
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css"
 import "react-big-calendar/lib/css/react-big-calendar.css"
+import toast from "react-hot-toast"
+
+type Events = {
+  title: string
+  start: Date
+  end: Date
+}
 
 export default function CalendarEvents() {
-  const [events, setEvents] = useState<Event[]>([])
-  const [newEvent, setNewEvent] = useState<Event>({
+  const [events, setEvents] = useState<Events[]>([])
+  const [newEvent, setNewEvent] = useState<Events>({
     title: "",
     start: new Date(),
     end: addHours(new Date(), 1),
   })
+
+  useEffect(() => {
+    const getEventsFirebase = async () => {
+      const querySnapshot = await getDocs(collection(db, "events"))
+
+      const data: Array<Events> = []
+
+      querySnapshot.forEach((doc) => {
+        data.push({
+          title: doc.data().title,
+          start: new Date(doc.data().start),
+          end: new Date(doc.data().end),
+        })
+      })
+
+      setEvents(data)
+    }
+
+    getEventsFirebase()
+  }, [events])
 
   const handleSelect = (slotInfo: {
     start: stringOrDate
@@ -43,13 +67,25 @@ export default function CalendarEvents() {
     })
   }
 
-  const handleAddEvent = () => {
-    setEvents([...events, newEvent])
-    setNewEvent({
-      title: "",
-      start: new Date(),
-      end: addHours(new Date(), 1),
+  const handleAddEvent = async () => {
+    await addDoc(collection(db, "events"), {
+      title: newEvent.title,
+      start: newEvent.start.toString(),
+      end: newEvent.end.toString(),
     })
+      .then(() => {
+        setEvents([...events, newEvent])
+      })
+      .catch(() => {
+        toast.error("An error occured, Try again ")
+      })
+      .finally(() => {
+        setNewEvent({
+          title: "",
+          start: new Date(),
+          end: addHours(new Date(), 1),
+        })
+      })
   }
 
   return (

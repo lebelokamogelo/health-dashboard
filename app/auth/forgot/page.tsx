@@ -59,7 +59,7 @@ export default function ForgotPassword() {
                   id="Email"
                   type="email"
                   {...formik.getFieldProps("Email")}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+                  className="w-full text-base px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                 />
                 {formik.touched.Email && formik.errors.Email ? (
                   <div className="mt-1 text-red-500">{formik.errors.Email}</div>

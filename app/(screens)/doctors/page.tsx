@@ -30,7 +30,7 @@ export default async function Profile() {
   return (
     <div className="doctor">
       <h4 className="text-xl">Doctors</h4>
-      <div className="grid grid-cols-5 gap-3 mt-4">
+      <div className="grid grid-cols-5 gap-2 mt-4">
         {data.map((doctor: Props) => (
           <ProfileDoctor key={doctor.uuid} data={doctor} />
         ))}

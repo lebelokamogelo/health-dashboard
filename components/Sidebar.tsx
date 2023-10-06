@@ -21,7 +21,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import Link from "next/link"
 
 export default function SidebarComponent() {
   const router = useRouter()
@@ -66,6 +65,7 @@ export default function SidebarComponent() {
             Dashboard
           </MenuItem>
           <MenuItem
+            onClick={() => router.push("/doctors")}
             className={`${
               path.includes("doctors")
                 ? "bg-slate-100 text-slate-800"
@@ -73,9 +73,10 @@ export default function SidebarComponent() {
             }`}
             icon={<User2 />}
           >
-            <Link href={"/doctors"}>Doctor</Link>
+            Doctor
           </MenuItem>
           <MenuItem
+            onClick={() => router.push("/patients")}
             className={`${
               path.includes("patients")
                 ? "bg-slate-100 text-slate-800"
@@ -83,9 +84,10 @@ export default function SidebarComponent() {
             }`}
             icon={<User2 />}
           >
-            <Link href={"/patients"}> Patient </Link>
+            Patient
           </MenuItem>
           <MenuItem
+            onClick={() => router.push("/appointments")}
             className={`${
               path.includes("appointments")
                 ? "bg-slate-100 text-slate-800"
@@ -93,9 +95,10 @@ export default function SidebarComponent() {
             }`}
             icon={<Calendar />}
           >
-            <Link href={"/appointments"}>Appointment</Link>
+            Appointment
           </MenuItem>
           <MenuItem
+            onClick={() => router.push("/calendar")}
             className={`${
               path.includes("calendar")
                 ? "bg-slate-100 text-slate-800"
@@ -103,9 +106,10 @@ export default function SidebarComponent() {
             }`}
             icon={<Calendar />}
           >
-            <Link href={"/calendar"}>Calendar</Link>
+            Calendar
           </MenuItem>
           <MenuItem
+            onClick={() => router.push("/settings")}
             className={`${
               path.includes("settings")
                 ? "bg-slate-100 text-slate-800"
@@ -113,7 +117,7 @@ export default function SidebarComponent() {
             }`}
             icon={<Settings />}
           >
-            <Link href={"/settings"}>Settings</Link>
+            Settings
           </MenuItem>
 
           <MenuItem icon={<ArrowDownRight />}>

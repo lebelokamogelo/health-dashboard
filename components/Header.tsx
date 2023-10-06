@@ -1,7 +1,6 @@
 "use client"
-import React from "react"
-import { Notification } from "./Notifications"
 import { usePathname } from "next/navigation"
+import { Notification } from "./Notifications"
 import Search from "./Search"
 
 export default function Header() {

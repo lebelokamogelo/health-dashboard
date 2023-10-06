@@ -1,8 +1,8 @@
 "use client"
-import Chart from "react-google-charts"
-import { Card } from "../ui/card"
 import { useState } from "react"
 import { Code } from "react-content-loader"
+import Chart from "react-google-charts"
+import { Card } from "../ui/card"
 
 const data = [
   ["Months", "Patients ..."],

@@ -1,15 +1,15 @@
 "use client"
 
-import React, { useState } from "react"
-import { Formik } from "formik"
-import * as Yup from "yup"
-import Link from "next/link"
-import { Eye, EyeOff } from "lucide-react"
-import { signInWithEmailAndPassword } from "firebase/auth"
-import { toast } from "react-hot-toast"
 import { auth } from "@/model/firebase"
+import { signInWithEmailAndPassword } from "firebase/auth"
+import { Formik } from "formik"
+import { Eye, EyeOff } from "lucide-react"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
+import { useState } from "react"
+import { toast } from "react-hot-toast"
 import { PulseLoader } from "react-spinners"
+import * as Yup from "yup"
 
 export default function Login() {
   const [show, setShow] = useState(false)

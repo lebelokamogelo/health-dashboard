@@ -1,13 +1,13 @@
 "use client"
 
-import React, { useState } from "react"
-import { Formik } from "formik"
-import * as Yup from "yup"
-import Link from "next/link"
-import { PulseLoader } from "react-spinners"
-import toast from "react-hot-toast"
-import { sendPasswordResetEmail } from "@firebase/auth"
 import { auth } from "@/model/firebase"
+import { sendPasswordResetEmail } from "@firebase/auth"
+import { Formik } from "formik"
+import Link from "next/link"
+import { useState } from "react"
+import toast from "react-hot-toast"
+import { PulseLoader } from "react-spinners"
+import * as Yup from "yup"
 
 export default function ForgotPassword() {
   const [loading, setLoading] = useState(false)

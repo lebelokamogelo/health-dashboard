@@ -1,24 +1,12 @@
 "use client"
 import { Button } from "@/components/ui/button"
-import { deleteUser, getAuth, updatePassword } from "@firebase/auth"
-import { collection, getDocs } from "@firebase/firestore"
+import { getAuth, updatePassword } from "@firebase/auth"
 import { Eye, EyeOff } from "lucide-react"
-import React, { useState } from "react"
+import { useState } from "react"
 import toast from "react-hot-toast"
 import { PulseLoader } from "react-spinners"
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
 import { useRouter } from "next/navigation"
-import { db } from "@/model/firebase"
 
 export default function Account() {
   const [loading, setLoading] = useState(false)

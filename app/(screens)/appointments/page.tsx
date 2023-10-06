@@ -17,7 +17,7 @@ import {
   updateDoc,
 } from "@firebase/firestore"
 import { ChevronDown, Trash2, X } from "lucide-react"
-import { uuid } from "uuidv4"
+import { nanoid } from "nanoid"
 
 import {
   AlertDialog,
@@ -30,6 +30,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
+import { Dialog, DialogTrigger } from "@/components/ui/dialog"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -38,10 +39,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useEffect, useState } from "react"
-import { Dialog, DialogTrigger } from "@/components/ui/dialog"
-import CreateAppointment from "./CreateAppointment"
-import { PulseLoader } from "react-spinners"
 import toast from "react-hot-toast"
+import { PulseLoader } from "react-spinners"
+import CreateAppointment from "./CreateAppointment"
 
 export type apppointmentProps = {
   time: string
@@ -66,8 +66,6 @@ export default function Appoitments() {
       const data: Array<apppointmentProps> = []
 
       querySnapshot.forEach((doc) => {
-        console.log(doc.data())
-
         data.push({
           time: doc.data().time,
           date: doc.data().date,
@@ -172,7 +170,7 @@ export default function Appoitments() {
           </TableHeader>
           <TableBody>
             {appointments.map((appointment, index) => (
-              <TableRow key={uuid()}>
+              <TableRow key={nanoid()}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell className="font-medium">
                   {appointment.name}

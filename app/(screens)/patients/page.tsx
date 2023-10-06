@@ -12,6 +12,7 @@ import { db } from "@/model/firebase"
 import { collection, getDocs } from "@firebase/firestore"
 import { Settings2, X } from "lucide-react"
 
+import Account from "@/components/account/Account"
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -21,11 +22,10 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-import Account from "@/components/account/Account"
 import { Dialog, DialogTrigger } from "@/components/ui/dialog"
-import { v4 } from "uuid"
-import DeleteUser from "./DeleteUser"
+import { nanoid } from "nanoid"
 import Link from "next/link"
+import DeleteUser from "./DeleteUser"
 
 type Props = {
   uuid: string
@@ -96,7 +96,7 @@ export default async function Patients() {
         </TableHeader>
         <TableBody>
           {data.map((patient) => (
-            <TableRow key={v4()}>
+            <TableRow key={nanoid()}>
               <TableCell>
                 <Avatar className="h-8 w-8">
                   <AvatarImage

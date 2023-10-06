@@ -5,10 +5,10 @@ import { auth, db } from "@/model/firebase"
 import { sendPasswordResetEmail } from "@firebase/auth"
 import { doc, getDoc, updateDoc } from "@firebase/firestore"
 import { MoveLeft } from "lucide-react"
-import React, { use, useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { PuffLoader, PulseLoader } from "react-spinners"
-import { useRouter } from "next/navigation"
 
 export default function Patient({ params }: { params: { uuid: String } }) {
   const uuid = params.uuid.toString()

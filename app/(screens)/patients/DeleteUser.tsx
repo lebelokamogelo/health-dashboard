@@ -13,16 +13,9 @@ import {
 import { Trash2 } from "lucide-react"
 import toast from "react-hot-toast"
 
-import emailjs from "@emailjs/browser"
-import {
-  addDoc,
-  collection,
-  doc,
-  getDocs,
-  query,
-  where,
-} from "@firebase/firestore"
 import { db } from "@/model/firebase"
+import emailjs from "@emailjs/browser"
+import { addDoc, collection, getDocs, query, where } from "@firebase/firestore"
 
 export default function DeleteUser({ email }: { email: String }) {
   const sendEmail = async () => {

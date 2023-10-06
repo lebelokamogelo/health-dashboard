@@ -2,7 +2,6 @@
 
 import { Bell } from "lucide-react"
 
-import { cn } from "@/lib/utils"
 import {
   Card,
   CardContent,
@@ -10,6 +9,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { cn } from "@/lib/utils"
 import { Menu } from "@headlessui/react"
 
 const notifications = [

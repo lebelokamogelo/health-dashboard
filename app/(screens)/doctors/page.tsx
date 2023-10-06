@@ -1,7 +1,6 @@
-import ProfileDoctor from "./Profile"
 import { db } from "@/model/firebase"
 import { collection, getDocs } from "@firebase/firestore"
-import React from "react"
+import ProfileDoctor from "./Profile"
 
 export type Props = {
   name: string

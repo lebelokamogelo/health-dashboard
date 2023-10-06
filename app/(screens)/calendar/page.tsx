@@ -1,4 +1,11 @@
 "use client"
+import { Button } from "@/components/ui/button"
+import addHours from "date-fns/addHours"
+import format from "date-fns/format"
+import getDay from "date-fns/getDay"
+import enUS from "date-fns/locale/en-US"
+import parse from "date-fns/parse"
+import startOfWeek from "date-fns/startOfWeek"
 import { useState } from "react"
 import {
   Calendar,
@@ -7,15 +14,8 @@ import {
   stringOrDate,
 } from "react-big-calendar"
 import withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop"
-import format from "date-fns/format"
-import parse from "date-fns/parse"
-import startOfWeek from "date-fns/startOfWeek"
-import getDay from "date-fns/getDay"
-import enUS from "date-fns/locale/en-US"
-import addHours from "date-fns/addHours"
 import "react-big-calendar/lib/addons/dragAndDrop/styles.css"
 import "react-big-calendar/lib/css/react-big-calendar.css"
-import { Button } from "@/components/ui/button"
 
 export default function CalendarEvents() {
   const [events, setEvents] = useState<Event[]>([])

@@ -1,21 +1,21 @@
-import SidebarComponent from "@/components/Sidebar";
-import "./globals.css";
-import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { Toaster } from "react-hot-toast";
+import Footer from "@/components/Footer"
+import Header from "@/components/Header"
+import SidebarComponent from "@/components/Sidebar"
+import type { Metadata } from "next"
+import { Poppins } from "next/font/google"
+import { Toaster } from "react-hot-toast"
+import "./globals.css"
 
-const poppins = Poppins({ subsets: ["latin"], weight: "400" });
+const poppins = Poppins({ subsets: ["latin"], weight: "400" })
 
 export const metadata: Metadata = {
   title: "Online Health Dashboard",
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en">
@@ -31,5 +31,5 @@ export default function RootLayout({
         </main>
       </body>
     </html>
-  );
+  )
 }

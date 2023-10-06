@@ -1,7 +1,5 @@
 "use client"
-import Image from "next/image"
-import { Sidebar, Menu, MenuItem } from "react-pro-sidebar"
-import { usePathname, useRouter } from "next/navigation"
+import { auth } from "@/model/firebase"
 import {
   ArrowDownRight,
   Calendar,
@@ -9,7 +7,9 @@ import {
   Settings,
   User2,
 } from "lucide-react"
-import { auth } from "@/model/firebase"
+import Image from "next/image"
+import { usePathname, useRouter } from "next/navigation"
+import { Menu, MenuItem, Sidebar } from "react-pro-sidebar"
 
 import {
   AlertDialog,

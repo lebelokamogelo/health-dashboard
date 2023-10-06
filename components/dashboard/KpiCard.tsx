@@ -1,6 +1,5 @@
-import React from "react"
-import { Card } from "../ui/card"
 import { DollarSign, User2 } from "lucide-react"
+import { Card } from "../ui/card"
 
 type Props = {
   heading: string

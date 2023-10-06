@@ -1,8 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Card, CardHeader, CardTitle } from "../ui/card"
-import { collection, getDocs } from "@firebase/firestore"
 import { db } from "@/model/firebase"
-import { uuid } from "uuidv4"
+import { collection, getDocs } from "@firebase/firestore"
+import { nanoid } from "nanoid"
+import { Card, CardHeader, CardTitle } from "../ui/card"
 
 type dataProps = {
   uuid: string
@@ -40,7 +40,7 @@ export async function RecentPatient() {
         <div className="px-8 py-4 space-y-8">
           {data.map((item) => {
             return (
-              <div key={uuid()} className="flex items-center">
+              <div key={nanoid()} className="flex items-center">
                 <Avatar className="h-12 w-12">
                   <AvatarImage
                     src="https://github.com/shadcn.png"

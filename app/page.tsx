@@ -1,14 +1,13 @@
 import KpiCard from "@/components/dashboard/KpiCard"
 import Overview from "@/components/dashboard/PatientChart"
 import { RecentPatient } from "@/components/dashboard/RecentPatient"
-import { auth, db } from "@/model/firebase"
+import { db } from "@/model/firebase"
 import {
   collection,
   collectionGroup,
   getDocs,
   query,
 } from "@firebase/firestore"
-import React from "react"
 
 export default async function Home() {
   const querySnapshot = async (searchCollections: string) => {

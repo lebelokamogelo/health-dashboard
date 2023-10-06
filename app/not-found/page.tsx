@@ -1,9 +1,8 @@
-"use client";
-import { useRouter } from "next/navigation";
-import React from "react";
+"use client"
+import { useRouter } from "next/navigation"
 
 export default function NotFound() {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <div className="flex items-center justify-center w-full h-full p-5">
       <div className="text-center">
@@ -38,5 +37,5 @@ export default function NotFound() {
         </div>
       </div>
     </div>
-  );
+  )
 }

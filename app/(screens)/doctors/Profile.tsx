@@ -2,7 +2,6 @@
 
 import { Props } from "@/app/(screens)/doctors/page"
 import Image from "next/image"
-import React from "react"
 import ReactStars from "react-rating-star-with-type"
 
 export default function ProfileDoctor({ data }: { data: Props }) {

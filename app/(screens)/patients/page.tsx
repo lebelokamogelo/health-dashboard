@@ -85,10 +85,10 @@ export default function Patients() {
         setLoading(false)
       })
   }
-
+  ;``
   useEffect(() => {
     const getPatients = async () => {
-      const res = await fetch("http://localhost:3000/api/patients", {
+      const res = await fetch("/api/patients", {
         method: "GET",
         headers: { "Content-type": "application/json;charset=UTF-8" },
         cache: "no-cache",

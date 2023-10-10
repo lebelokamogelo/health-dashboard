@@ -39,7 +39,7 @@ export default function DeleteUser({ email }: { email: String }) {
             "service_07yhmoj",
             "template_xiin8pf",
             {
-              email: "lebelokamogelo47@gmail.com",
+              email: email,
             },
             "6iESPvcVAhcMQEsOw"
           )

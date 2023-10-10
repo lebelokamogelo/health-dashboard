@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   Table,
   TableBody,
@@ -8,8 +7,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { db } from "@/model/firebase"
-import { collection, getDocs } from "@firebase/firestore"
 import { Settings2, X } from "lucide-react"
 
 import Account from "@/components/account/Account"
@@ -22,6 +19,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Dialog, DialogTrigger } from "@/components/ui/dialog"
 import { nanoid } from "nanoid"
 import Link from "next/link"
@@ -35,18 +33,17 @@ type Props = {
 }
 
 export default async function Patients() {
-  const querySnapshot = await getDocs(collection(db, "patients"))
+  let data = []
 
-  const data: Array<Props> = []
-
-  querySnapshot.forEach((doc) => {
-    data.push({
-      uuid: doc.data().uuid,
-      name: doc.data().name,
-      email: doc.data().email,
-      phone: doc.data().phone,
-    })
+  const res = await fetch("http://localhost:3000/api/patients", {
+    method: "GET",
+    headers: { "Content-type": "application/json;charset=UTF-8" },
+    cache: "no-cache",
   })
+
+  if (res.ok) {
+    data = await res.json()
+  }
 
   const avatarFallBackName = (name: string) =>
     name
@@ -95,7 +92,7 @@ export default async function Patients() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {data.map((patient) => (
+          {data.map((patient: Props) => (
             <TableRow key={nanoid()}>
               <TableCell>
                 <Avatar className="h-8 w-8">

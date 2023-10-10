@@ -17,7 +17,19 @@ export default async function Home() {
     return querySnapshot.size
   }
 
-  const patient = await querySnapshot("patients")
+  let data = []
+
+  const res = await fetch("http://localhost:3000/api/patients", {
+    method: "GET",
+    headers: { "Content-type": "application/json;charset=UTF-8" },
+    cache: "no-cache",
+  })
+
+  if (res.ok) {
+    data = await res.json()
+  }
+
+  const patient = await data.length
   const doctor = await querySnapshot("doctors")
   const apppointments = (await getDocs(collectionGroup(db, "appointment"))).size
 

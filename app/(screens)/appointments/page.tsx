@@ -41,7 +41,7 @@ import {
 import { useEffect, useState } from "react"
 import toast from "react-hot-toast"
 import { PulseLoader } from "react-spinners"
-import CreateAppointment from "./CreateAppointment"
+import CreateAppointment from "./Appointment"
 
 export type apppointmentProps = {
   time: string
@@ -133,7 +133,7 @@ export default function Appoitments() {
         <AlertDialog>
           <AlertDialogTrigger asChild>
             <p className="cursor-pointer bg-slate-200 hover:bg-slate-300 text-base w-52 text-center p-2 rounded-md">
-              Create appointment
+              Book appointment
             </p>
           </AlertDialogTrigger>
           <AlertDialogContent>
@@ -173,12 +173,10 @@ export default function Appoitments() {
             {appointments.map((appointment, index) => (
               <TableRow key={nanoid()}>
                 <TableCell>{index + 1}</TableCell>
-                <TableCell className="font-medium">
-                  {appointment.name}
-                </TableCell>
-                <TableCell>{appointment.date}</TableCell>
+                <TableCell className="text-base">{appointment.name}</TableCell>
+                <TableCell className="text-base">{appointment.date}</TableCell>
 
-                <TableCell>{appointment.time}</TableCell>
+                <TableCell className="text-base">{appointment.time}</TableCell>
                 <TableCell>
                   <div
                     className={`opacity-80 p-1 text-center rounded-full w-32`}

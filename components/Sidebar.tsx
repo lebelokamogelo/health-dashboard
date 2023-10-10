@@ -43,7 +43,7 @@ export default function SidebarComponent() {
               <div className="relative w-24 h-24 mx-auto -mt-16 overflow-hidden border-2 border-white rounded-full">
                 <Image
                   className="object-cover object-center h-24"
-                  src="https://images.unsplash.com/photo-1587351021355-a479a299d2f9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2072&q=80"
+                  src="https://images.unsplash.com/photo-1504813184591-01572f98c85f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80"
                   alt="Profile"
                   fill
                 />

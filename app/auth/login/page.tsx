@@ -120,7 +120,7 @@ export default function Login() {
                   href="/auth/forgot"
                   className="ml-auto text-blue-500 text-md hover:text-blue-700 hover:underline"
                 >
-                  Forgot Password?
+                  Forgot password?
                 </Link>
               </div>
 

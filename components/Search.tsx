@@ -30,9 +30,9 @@ export default function Search() {
     <div>
       <Combobox>
         <div className="relative mt-1">
-          <div className="relative w-80 cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md ">
+          <div className="relative w-96 cursor-default overflow-hidden rounded-lg bg-white text-left shadow-md">
             <Combobox.Input
-              className="w-full border-none py-3 px-4 text-sm leading-5 text-gray-900"
+              className="w-full border-none outline-none p-4 placeholder:text-lg text-sm leading-5 text-gray-900"
               value={query}
               placeholder="Type to search"
               onChange={(event) => setQuery(event.target.value)}

@@ -54,7 +54,7 @@ export default function Account() {
   return (
     <div className="bg-grey-lighter flex flex-col">
       <div className="container max-w-xl mx-auto flex-1 flex flex-col items-center justify-center px-2">
-        <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+        <div className="bg-white px-6 py-8 rounded text-black w-full">
           <h1 className="mb-8 text-xl text-center">Create Account</h1>
           <input
             type="text"

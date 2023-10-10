@@ -79,7 +79,7 @@ export default function CreateAppointment() {
 
   return (
     <div>
-      <p className="text-slate-700">Request Appointment</p>
+      <p className="text-slate-700">Book Appointment</p>
 
       <div className="form">
         <div className="flex space-x-4 mt-8">
@@ -106,7 +106,7 @@ export default function CreateAppointment() {
               onChange={(e) =>
                 setAppointment({ ...appointment, contact: e.target.value })
               }
-              className="px-4 py-2 rounded-md bg-transparent border-[1px] border-slate-200 w-[230px] text-sm outline-none"
+              className="px-4 py-2 font-normal rounded-md bg-transparent border-[1px] border-slate-200 w-[230px] text-sm outline-none"
             />
           </div>
         </div>
@@ -121,7 +121,7 @@ export default function CreateAppointment() {
               value={doctors[Number(selectedDoctor)]}
               onChange={setSelectedDoctor}
             >
-              <Listbox.Button className="w-[230px] text-start border-[1px] h-12 rounded-md px-2 text-sm">
+              <Listbox.Button className="w-[230px] font-normal text-start border-[1px] h-12 rounded-md px-2 text-sm">
                 {doctors[Number(selectedDoctor)]}
               </Listbox.Button>
               <Listbox.Options className="absolute bg-white bottom-0 shadow-xl text-sm space-y-3 px-4 py-2 w-40">
@@ -129,7 +129,7 @@ export default function CreateAppointment() {
                   <Listbox.Option
                     key={doctor}
                     value={index}
-                    className="cursor-pointer"
+                    className="cursor-pointer font-normal"
                   >
                     {doctor}
                   </Listbox.Option>
@@ -140,7 +140,7 @@ export default function CreateAppointment() {
           <div className="Slots flex flex-col space-y-2 mt-3 relative">
             <label className="text-base text-slate-800 opacity-80">Slots</label>
             <Listbox value={selectedSlot} onChange={setSelectedSlot}>
-              <Listbox.Button className="w-[230px] text-start border-[1px] h-12 rounded-md px-2 text-sm">
+              <Listbox.Button className="w-[230px] font-normal text-start border-[1px] h-12 rounded-md px-2 text-sm">
                 {selectedSlot}
               </Listbox.Button>
               <Listbox.Options className="absolute bg-white  shadow-xl text-sm space-y-3 px-4 py-2 w-32 bottom-0">
@@ -148,7 +148,7 @@ export default function CreateAppointment() {
                   <Listbox.Option
                     key={slot}
                     value={slot}
-                    className="cursor-pointer"
+                    className="cursor-pointer font-normal"
                   >
                     {slot}
                   </Listbox.Option>

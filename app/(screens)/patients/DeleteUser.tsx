@@ -52,7 +52,7 @@ export default function DeleteUser({ email }: { email: String }) {
             }
           )
       } else {
-        toast.error("Failed to delete the user")
+        toast.error("An error has occured!")
       }
     }
   }

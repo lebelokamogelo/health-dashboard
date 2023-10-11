@@ -3,8 +3,8 @@ import { doc, setDoc } from "@firebase/firestore"
 import { Twilio } from "twilio"
 
 const client = new Twilio(
-  "AC8cfc678ad8337aff4b0074631f46db98",
-  "bf522be35253ebd67428f700d0c392dc"
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
 )
 
 export async function POST(req: Request) {
@@ -36,7 +36,7 @@ export async function POST(req: Request) {
     const response = await client.messages.create({
       body: `Your appointment with ${doctorName} on ${date} at ${time} is confirmed. Your appointment ID is ${id}.`,
       to: phone,
-      from: "+19786274042",
+      from: process.env.TWILIO_PHONE_NUMBER,
     })
 
     if (response.status === "queued") {

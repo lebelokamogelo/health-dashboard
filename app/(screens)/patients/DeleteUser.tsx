@@ -36,12 +36,12 @@ export default function DeleteUser({ email }: { email: String }) {
       if (docRef.id) {
         emailjs
           .send(
-            process.env.YOUR_SERVICE_ID!,
-            process.env.YOUR_TEMPLATE_ID!,
+            "service_07yhmoj",
+            "template_xiin8pf",
             {
               email: email,
             },
-            process.env.EMAILJS_FROM
+            "6iESPvcVAhcMQEsOw"
           )
           .then(
             (result) => {

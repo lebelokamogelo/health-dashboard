@@ -50,6 +50,7 @@ export default function Patients() {
   const [password, setPassword] = useState("")
   const [show, setShow] = useState(false)
   const [loading, setLoading] = useState(false)
+  const [loadingPatient, setLoadingPatient] = useState(true)
 
   const createAccount = (
     email: string,
@@ -96,6 +97,7 @@ export default function Patients() {
 
       if (res.ok) {
         setData(await res.json())
+        setLoadingPatient(false)
       }
     }
 
@@ -198,53 +200,59 @@ export default function Patients() {
         </AlertDialog>
       </Dialog>
 
-      <Table className="border mt-10">
-        <TableCaption className="text-slate-500 text-base">
-          Patients
-        </TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Photo</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>ID</TableHead>
-            <TableHead>Email address</TableHead>
-            <TableHead>Phone number</TableHead>
-            <TableHead>status</TableHead>
-            <TableHead>Action</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {data &&
-            data.map((patient: PatientProps) => (
-              <TableRow key={nanoid()}>
-                <TableCell>
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage
-                      src="https://github.com/shadcn.png"
-                      alt="Avatar"
-                    />
-                    <AvatarFallback>
-                      {avatarFallBackName(patient.name)}
-                    </AvatarFallback>
-                  </Avatar>
-                </TableCell>
-                <TableCell className="font-medium">{patient.name}</TableCell>
-                <TableCell>{patient.uuid}</TableCell>
-                <TableCell>{patient.email}</TableCell>
-                <TableCell>{patient.phone}</TableCell>
-                <TableCell>
-                  <span className="text-blue-600 text-base">Active</span>
-                </TableCell>
-                <TableCell className="flex space-x-4">
-                  <DeleteUser email={patient.email} />
-                  <Link href={`/patients/${patient.uuid}`}>
-                    <Settings2 className="bg-teal-400 text-neutral-200 cursor-pointer p-1.5 rounded-lg h-8 w-8" />
-                  </Link>
-                </TableCell>
-              </TableRow>
-            ))}
-        </TableBody>
-      </Table>
+      {loadingPatient ? (
+        <div className="loading w-full text-center">
+          <PulseLoader color="#36d7b7" />
+        </div>
+      ) : (
+        <Table className="border mt-10">
+          <TableCaption className="text-slate-500 text-base">
+            Patients
+          </TableCaption>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Photo</TableHead>
+              <TableHead>Name</TableHead>
+              <TableHead>ID</TableHead>
+              <TableHead>Email address</TableHead>
+              <TableHead>Phone number</TableHead>
+              <TableHead>status</TableHead>
+              <TableHead>Action</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {data &&
+              data.map((patient: PatientProps) => (
+                <TableRow key={nanoid()}>
+                  <TableCell>
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage
+                        src="https://github.com/shadcn.png"
+                        alt="Avatar"
+                      />
+                      <AvatarFallback>
+                        {avatarFallBackName(patient.name)}
+                      </AvatarFallback>
+                    </Avatar>
+                  </TableCell>
+                  <TableCell className="font-medium">{patient.name}</TableCell>
+                  <TableCell>{patient.uuid}</TableCell>
+                  <TableCell>{patient.email}</TableCell>
+                  <TableCell>{patient.phone}</TableCell>
+                  <TableCell>
+                    <span className="text-blue-600 text-base">Active</span>
+                  </TableCell>
+                  <TableCell className="flex space-x-4">
+                    <DeleteUser email={patient.email} />
+                    <Link href={`/patients/${patient.uuid}`}>
+                      <Settings2 className="bg-teal-400 text-neutral-200 cursor-pointer p-1.5 rounded-lg h-8 w-8" />
+                    </Link>
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      )}
     </div>
   )
 }

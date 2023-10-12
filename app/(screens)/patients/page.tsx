@@ -46,7 +46,7 @@ export default function Patients() {
 
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
-  const [phone, setPhone] = useState("")
+  const [phone, setPhone] = useState("+27000000000")
   const [password, setPassword] = useState("")
   const [show, setShow] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -63,17 +63,43 @@ export default function Patients() {
       .then(async (userCredential) => {
         const user = userCredential.user
 
-        const docRef = await setDoc(doc(db, "patients", user.uid), {
+        await setDoc(doc(db, "patients", user.uid), {
           name: name,
           image: "",
           email: email,
           phone: phone,
           uuid: user.uid,
         })
-          .then(() => {
+          .then(async () => {
             setData((prev) => [...prev, { uuid: user.uid, name, email, phone }])
-            toast.success("Account created successfully")
-            setLoading(false)
+
+            const response = await fetch("/api/account", {
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              method: "POST",
+              body: JSON.stringify({
+                username: email,
+                password: password,
+                phone: phone,
+              }),
+            })
+
+            if (response.ok) {
+              const responseData = await response.json()
+
+              if (responseData.status === "200") {
+                toast.success("Account was created successfully")
+                setLoading(false)
+              } else {
+                toast.error("Something went wrong")
+                setLoading(false)
+              }
+            } else {
+              toast.error("Server error")
+              setLoading(false)
+            }
           })
           .catch((err) => {
             toast.success(err.message)

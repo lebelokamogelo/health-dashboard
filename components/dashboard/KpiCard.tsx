@@ -18,7 +18,7 @@ export default function KpiCard({ heading, total, percent }: Props) {
           <div className="space-y-6 left">
             <div className="text-2xl font-medium text-slate-800 total">
               {heading.toLowerCase() == "sales" ? (
-                <span>$ {total}</span>
+                <span>R {total}</span>
               ) : (
                 <span>{total}</span>
               )}

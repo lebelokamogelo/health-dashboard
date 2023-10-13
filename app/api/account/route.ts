@@ -1,8 +1,8 @@
 import { Twilio } from "twilio"
 
 const client = new Twilio(
-  "AC8cfc678ad8337aff4b0074631f46db98",
-  "55f82e3849b2fa02c037d6d139cc53f1"
+  process.env.TWILIO_ACCOUNT_SID,
+  process.env.TWILIO_AUTH_TOKEN
 )
 
 export async function POST(req: Request) {
@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     const response = await client.messages.create({
       body: `Your account was created successfully. Username:  ${username} and Password: ${password}.`,
       to: phone,
-      from: "+19786274042",
+      from: process.env.TWILIO_PHONE_NUMBER,
     })
 
     if (response.status === "queued") {
